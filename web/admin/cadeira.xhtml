@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Universidade</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.min.css"/>
+        <script src="../resources/jquery/jquery.min.js"/>
+        <script src="../resources/bootstrap/js/bootstrap.min.js"/>
+        <style src="../css/template.css"/>
+    </h:head>
+    <h:body>
+        <h:form>
+            <!-- Cabeçalho -->
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <!--a class="navbar-brand" href="#">Logo</a-->
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li><h:commandLink value="#{loginMB.linkProfessor()}" action="#{loginMB.direcionaProfessor()}" /></li>
+                            <li><h:commandLink value="#{loginMB.linkAluno()}" action="#{loginMB.direcionaAluno()}" /></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><h:commandLink action="#{loginMB.realizaLogout()}" ><span class="glyphicon glyphicon-log-in"></span> Logof</h:commandLink></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container-fluid text-center">
+                <div class="row content">
+                    <div class="col-sm-2 sidenav">
+                        <p><h1>Cadastros</h1></p>
+                        <p><h:commandLink value="Usuário" action="#{loginMB.linkCadastroUsuario()}" /> </p>
+                        <p><h:commandLink value="Curso" action="#{loginMB.linkCadastroCurso()}" /> </p>
+                        <p><b>Cadeira</b></p>
+                        <p><h:commandLink value="Turma" action="#{loginMB.linkCadastroTurma()}" /> </p>
+                    </div>
+                    <div class="col-sm-8 text-left">
+                        <h:dataTable var="cadeira" value="#{cadeiraMB.retornaListaCadeira()}" styleClass="table table-bordered">
+                            <f:facet name="header">
+                                <h:outputText value="Tabela de Cursos"/>
+                            </f:facet>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="ID"/>
+                                </f:facet>
+                                <h:outputText value="#{cadeira.id}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nome"/>
+                                </f:facet>
+                                <h:outputText value="#{cadeira.nome}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Area"/>
+                                </f:facet>
+                                <h:outputText value="#{cadeira.area}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Carga Horária"/>
+                                </f:facet>
+                                <h:outputText value="#{cadeira.cargaHoraria}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Opções"/>
+                                </f:facet>
+                                <h:commandButton value="Editar" styleClass="btn btn-primary" action="#{cadeiraMB.editarCadeira(cadeira)}" /> 
+                                <h:commandButton value="Excluir" styleClass="btn btn-primary" action="#{cadeiraMB.excluirCadeira(cadeira)}" />
+                            </h:column>
+                        </h:dataTable> 
+                        <h:commandButton value="Nova Cadeira" styleClass="btn btn-primary" action="#{cadeiraMB.criarCadeira()}"/>
+                        <h:outputLabel value="#{cadeiraMB.mensagemErro}" style="color: red" />
+                    </div>
+                    <div class="col-sm-2 sidenav">
+                        <div class="well">
+                            <p>ADS</p>
+                        </div>
+                        <div class="well">
+                            <p>ADS</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>

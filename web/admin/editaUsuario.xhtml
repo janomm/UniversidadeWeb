@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Universidade</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.min.css"/>
+        <script src="../resources/jquery/jquery.min.js"/>
+        <script src="../resources/bootstrap/js/bootstrap.min.js"/>
+        <style src="../css/template.css"/>
+    </h:head>
+    <h:body>
+        <h:form>
+            <!-- Cabeçalho -->
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <!--a class="navbar-brand" href="#">Logo</a-->
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li><h:commandLink value="#{loginMB.linkProfessor()}" action="#{loginMB.direcionaProfessor()}" /></li>
+                            <li><h:commandLink value="#{loginMB.linkAluno()}" action="#{loginMB.direcionaAluno()}" /></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><h:commandLink action="#{loginMB.realizaLogout()}" ><span class="glyphicon glyphicon-log-in"></span> Logof</h:commandLink></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container-fluid text-center">
+                <div class="row content">
+                    <div class="col-sm-2 sidenav">
+                        <p><h1>Cadastros</h1></p>
+                        <p><b>Usuário</b></p>
+                        <p><h:commandLink value="Curso" action="#{loginMB.linkCadastroCurso()}" /> </p>
+                        <p><h:commandLink value="Cadeira" action="#{loginMB.linkCadastroCadeira()}" /> </p>
+                        <p><h:commandLink value="Turma" action="#{loginMB.linkCadastroTurma()}" /> </p>
+                    </div>
+                    <div class="col-sm-8 text-left">
+                        <h:panelGrid columns="2" border="0" styleClass="table table-bordered" >
+                            <h:outputLabel for="idNome" value="Nome:"/>
+                            <h:inputText id="idNome" value="#{usuarioMB.usuario.nome}"  />
+
+                            <h:outputLabel for="idEmail" value="Email:"/>
+                            <h:inputText id="idEmail" value="#{usuarioMB.usuario.email}" />
+
+                            <h:outputLabel for="idSexo" value="Sexo:" />
+                            <h:selectOneRadio id="idSexo" value="#{usuarioMB.usuario.sexo}">
+                                <f:selectItem itemLabel="Masculino" itemValue="true" />
+                                <f:selectItem itemLabel="Feminino" itemValue="false" />
+                            </h:selectOneRadio>
+
+                            <h:outputLabel for="idLogin" value="Usuario:"/>
+                            <h:inputText id="idLogin" value="#{usuarioMB.usuario.usuario}" />
+
+                            <h:outputLabel for="idSenha" value="Senha"/>
+                            <h:inputSecret id="idSenha" value="#{usuarioMB.usuario.senha}" />
+
+                            <h:outputLabel for="idAdmin" value="Admin"/>
+                            <h:selectBooleanCheckbox value="#{usuarioMB.usuario.administrador}" />
+
+                            <h:outputLabel for="idProfessor" value="Professor"/>
+                            <h:selectBooleanCheckbox value="#{usuarioMB.usuario.professor}" />
+
+                            <h:outputLabel for="idAluno" value="Aluno"/>
+                            <h:selectBooleanCheckbox value="#{usuarioMB.usuario.aluno}" />
+
+                            <h:commandButton value="Alterar" styleClass="btn btn-primary" action="#{usuarioMB.alterarUsuario()}"/>
+                            <h:button value="Voltar" styleClass="btn btn-primary" outcome="usuario"/>
+                        </h:panelGrid>
+                        <h:outputLabel value="#{usuarioMB.mensagemErro}" style="color: red" />
+
+                    </div>
+                    <div class="col-sm-2 sidenav">
+                        <div class="well">
+                            <p>ADS</p>
+                        </div>
+                        <div class="well">
+                            <p>ADS</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>
