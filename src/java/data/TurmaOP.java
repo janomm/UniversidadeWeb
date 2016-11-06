@@ -87,4 +87,24 @@ public class TurmaOP {
             return ex.getMessage();
         }
     }
+    
+    public Turma retornaTurmaPorId(Integer id){
+        EntityManagerFactory factory
+                = Persistence.createEntityManagerFactory(
+                        "UniversidadeWebPU");
+        EntityManager manager = factory.createEntityManager();
+
+        Query query = manager.createQuery("SELECT t FROM Turma t WHERE id = " + id.toString());
+        
+        List<Turma> listaTurma = query.getResultList();
+        
+        Turma tRetorno = new Turma();
+        for (Turma t : listaTurma){
+            tRetorno = t;
+        }        
+        
+        factory.close();
+        return tRetorno;
+        
+    }
 }

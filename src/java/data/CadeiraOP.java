@@ -86,4 +86,23 @@ public class CadeiraOP {
             return ex.getMessage();
         }
     }
+    
+    public Cadeira retornaCadeiraPorId(Integer id){
+        EntityManagerFactory factory
+                = Persistence.createEntityManagerFactory(
+                        "UniversidadeWebPU");
+        EntityManager manager = factory.createEntityManager();
+
+        Query query = manager.createQuery("SELECT c FROM Cadeira c WHERE id = " + id.toString());
+        
+        List<Cadeira> listaCadeira = query.getResultList();
+        
+        Cadeira cRetorno = new Cadeira();
+        for (Cadeira c : listaCadeira){
+            cRetorno = c;
+        }        
+        
+        factory.close();
+        return cRetorno;
+    }
 }

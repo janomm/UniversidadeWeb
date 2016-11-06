@@ -16,6 +16,7 @@ import java.util.List;
 import model.Cadeira;
 import model.Curso;
 import model.Turma;
+import view.TurmaView;
 
 /**
  *
@@ -37,17 +38,16 @@ public class TurmaMB implements Serializable {
     private TurmaOP turmaOP;
     private CadeiraOP cadeiraOP;
     private CursoOP cursoOP;
+    private List<TurmaView> listaTurmaView;
     
     public TurmaMB() {
         turmaOP = new TurmaOP();
         cadeiraOP = new CadeiraOP();
         cursoOP = new CursoOP();
-        listaTurmas = new ArrayList<Turma>();
         listaTurmas = retornaListaTurma();
-        listaCadeiras = new ArrayList<Cadeira>();
         listaCadeiras = cadeiraOP.retornaListaCadeira();
-        listaCursos = new ArrayList<Curso>();
         listaCursos = cursoOP.retornaListaCurso();
+        listaTurmaView = carregaTurmaView();
     }
 
     public List<Turma> getListaTurmas() {
@@ -155,5 +155,19 @@ public class TurmaMB implements Serializable {
     public String criarTurma() {
         turma = new Turma();
         return "criaTurma";
+    }
+    
+    public List<TurmaView> carregaTurmaView(){
+        List<TurmaView> lista = new ArrayList<TurmaView>();
+        
+        for(Turma t : retornaListaTurma()){
+            TurmaView tv = new TurmaView();
+            tv.setId(t.getId());
+            tv.setCurso(cursoOP.retornaCursoPorId(t.getCodCurso()).getNome());
+            tv.setCadeira(cadeiraOP.retornaCadeiraPorId(t.getCodCadeira()).getNome());
+            tv.setVagas(t.getNumVagasDisp());
+            lista.add(tv);
+        }
+        return lista;
     }
 }
