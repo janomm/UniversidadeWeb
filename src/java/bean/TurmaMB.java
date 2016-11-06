@@ -16,7 +16,6 @@ import java.util.List;
 import model.Cadeira;
 import model.Curso;
 import model.Turma;
-import view.TurmaView;
 
 /**
  *
@@ -38,7 +37,6 @@ public class TurmaMB implements Serializable {
     private TurmaOP turmaOP;
     private CadeiraOP cadeiraOP;
     private CursoOP cursoOP;
-    private List<TurmaView> listaTurmaView;
     
     public TurmaMB() {
         turmaOP = new TurmaOP();
@@ -47,7 +45,6 @@ public class TurmaMB implements Serializable {
         listaTurmas = retornaListaTurma();
         listaCadeiras = cadeiraOP.retornaListaCadeira();
         listaCursos = cursoOP.retornaListaCurso();
-        listaTurmaView = carregaTurmaView();
     }
 
     public List<Turma> getListaTurmas() {
@@ -98,10 +95,6 @@ public class TurmaMB implements Serializable {
         this.cursoOP = cursoOP;
     }
     
-    public List<Turma> retornaListaTurma() {
-        return turmaOP.retornaListaTurma();
-    }
-
     public List<Cadeira> getListaCadeiras() {
         return listaCadeiras;
     }
@@ -117,10 +110,14 @@ public class TurmaMB implements Serializable {
     public void setListaCursos(List<Curso> listaCursos) {
         this.listaCursos = listaCursos;
     }
+
+    public List<Turma> retornaListaTurma() {
+        return turmaOP.retornaListaTurma();
+    }
     
-    public void excluirTurma(Turma c) {
+    public void excluirTurma(Turma t) {
         String retorno = "";
-        retorno = turmaOP.excluirTurma(c);
+        retorno = turmaOP.excluirTurma(t);
         if(retorno.length() != 0)
             mensagemErro = retorno;
     }
@@ -155,19 +152,5 @@ public class TurmaMB implements Serializable {
     public String criarTurma() {
         turma = new Turma();
         return "criaTurma";
-    }
-    
-    public List<TurmaView> carregaTurmaView(){
-        List<TurmaView> lista = new ArrayList<TurmaView>();
-        
-        for(Turma t : retornaListaTurma()){
-            TurmaView tv = new TurmaView();
-            tv.setId(t.getId());
-            tv.setCurso(cursoOP.retornaCursoPorId(t.getCodCurso()).getNome());
-            tv.setCadeira(cadeiraOP.retornaCadeiraPorId(t.getCodCadeira()).getNome());
-            tv.setVagas(t.getNumVagasDisp());
-            lista.add(tv);
-        }
-        return lista;
     }
 }

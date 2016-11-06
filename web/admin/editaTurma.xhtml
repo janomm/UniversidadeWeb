@@ -59,7 +59,7 @@
                             </h:selectOneMenu>
 
                             <h:outputLabel for="idNumVagas" value="Vagas:"/>
-                            <h:inputText id="idNumVagas" value="#{turmaMB.turma.numVagas}" disabled />
+                            <h:inputText id="idNumVagas" value="#{turmaMB.turma.numVagas}" disabled="true" />
 
                             <h:commandButton value="Alterar" styleClass="btn btn-primary" action="#{turmaMB.alterarTurma()}"/>
                             <h:button value="Voltar" styleClass="btn btn-primary" outcome="turma"/>

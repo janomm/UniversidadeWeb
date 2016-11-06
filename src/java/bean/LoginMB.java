@@ -165,6 +165,18 @@ public class LoginMB implements Serializable {
         return "turma";
     }
     
+    public String linkAlunoMatricula(){
+        return "matricula";
+    }
+    
+    public String linkAlunoTurma(){
+        return "turma";
+    }
+    
+    public String linkAlunoHistorico(){
+        return "historico";
+    }
+    
     private List<Usuario> retornaListaUsuario() {
         EntityManagerFactory factory
                 = Persistence.createEntityManagerFactory(
