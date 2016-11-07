@@ -47,20 +47,17 @@
                     </div>
                     <div class="col-sm-8 text-left">
                         <h:panelGrid columns="2" border="0" styleClass="table table-bordered" >
-                           <!-- <h:outputLabel for="idCodCurso" value="Curso:"/>
-                            <h:selectOneMenu id="idCodCurso" value="# {turmaMB.turma.codCurso}">
-                                <f:selectItems value="# {turmaMB.listaCursos}" var="curso"
-                                               itemValue="# {curso.id}" itemLabel="# {curso.nome}"/>
-                            </h:selectOneMenu> -->
-                            
                             <h:outputLabel for="idCodCadeira" value="Cadeira:"/>
-                            <h:selectOneMenu id="idCodcadeira" value="#{turmaMB.turma.codCadeira}">
-                                <f:selectItems value="#{turmaMB.listaCadeiras}" var="cadeira"
+                            <h:selectOneMenu id="idCodcadeira" value="#{turmaMB.turma.codCadeira}" class="btn btn-primary dropdown-toggle">
+                                <f:selectItems class="dropdown-menu" value="#{turmaMB.listaCadeiras}" var="cadeira"
                                                itemValue="#{cadeira.id}" itemLabel="#{cadeira.nome}"/>
                             </h:selectOneMenu>
-
+                            
                             <h:outputLabel for="idNumVagas" value="Vagas:"/>
-                            <h:inputText id="idNumVagas" value="#{turmaMB.turma.numVagas}" disabled="true" />
+                            <h:inputText id="idNumVagas" value="#{turmaMB.turma.numVagas}" />
+
+                            <h:outputLabel for="idNumVagasDisp" value="Vagas Disponíveis:"/>
+                            <h:inputText id="idNumVagasDisp" value="#{turmaMB.turma.numVagasDisp}" disabled="true" />
 
                             <h:commandButton value="Alterar" styleClass="btn btn-primary" action="#{turmaMB.alterarTurma()}"/>
                             <h:button value="Voltar" styleClass="btn btn-primary" outcome="turma"/>

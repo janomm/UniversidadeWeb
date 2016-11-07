@@ -51,8 +51,8 @@
                             <h:inputText id="idNome" value="#{cadeiraMB.cadeira.nome}"  />
 
                             <h:outputLabel for="idCodCurso" value="Curso: "/>
-                            <h:selectOneMenu id="idCodCurso" value="#{cadeiraMB.cadeira.codCurso}">
-                                <f:selectItems value="#{cadeiraMB.listaCursos}" var="curso"
+                            <h:selectOneMenu id="idCodCurso" value="#{cadeiraMB.cadeira.codCurso}" class="btn btn-primary dropdown-toggle">
+                                <f:selectItems class="dropdown-menu" value="#{cadeiraMB.listaCursos}" var="curso"
                                                itemValue="#{curso.id}" itemLabel="#{curso.nome}"/>
                             </h:selectOneMenu>
 

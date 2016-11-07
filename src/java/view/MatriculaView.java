@@ -9,14 +9,13 @@ package view;
  *
  * @author mi
  */
-public class TurmaView {
+public class MatriculaView {
 
     private Integer id;
     private String nomeCurso;
-    private String nomeCadeira;
-    private Integer vagas;
+    private Integer codUsuario;
     
-    public TurmaView() {
+    public MatriculaView() {
     }
 
     public Integer getId() {
@@ -35,19 +34,12 @@ public class TurmaView {
         this.nomeCurso = nomeCurso;
     }
 
-    public String getNomeCadeira() {
-        return nomeCadeira;
+    public Integer getCodUsuario() {
+        return codUsuario;
     }
 
-    public void setNomeCadeira(String nomeCadeira) {
-        this.nomeCadeira = nomeCadeira;
+    public void setCodUsuario(Integer codUsuario) {
+        this.codUsuario = codUsuario;
     }
 
-    public Integer getVagas() {
-        return vagas;
-    }
-
-    public void setVagas(Integer vagas) {
-        this.vagas = vagas;
-    }
 }

@@ -16,6 +16,7 @@ import java.util.List;
 import model.Cadeira;
 import model.Curso;
 import model.Turma;
+import view.TurmaView;
 
 /**
  *
@@ -28,8 +29,8 @@ public class TurmaMB implements Serializable {
     /**
      * Creates a new instance of TurmaMB
      */
-    
     private List<Turma> listaTurmas;
+    private List<TurmaView> listaTurmaView;
     private List<Cadeira> listaCadeiras;
     private List<Curso> listaCursos;
     private Turma turma;
@@ -45,6 +46,7 @@ public class TurmaMB implements Serializable {
         listaTurmas = retornaListaTurma();
         listaCadeiras = cadeiraOP.retornaListaCadeira();
         listaCursos = cursoOP.retornaListaCurso();
+        listaTurmaView = turmaOP.retornaListaTurmaView();
     }
 
     public List<Turma> getListaTurmas() {
@@ -111,15 +113,24 @@ public class TurmaMB implements Serializable {
         this.listaCursos = listaCursos;
     }
 
+    public List<TurmaView> getListaTurmaView() {
+        return listaTurmaView;
+    }
+
+    public void setListaTurmaView(List<TurmaView> listaTurmaView) {
+        this.listaTurmaView = listaTurmaView;
+    }
+    
     public List<Turma> retornaListaTurma() {
         return turmaOP.retornaListaTurma();
     }
     
-    public void excluirTurma(Turma t) {
+    public void excluirTurma(TurmaView t) {
         String retorno = "";
-        retorno = turmaOP.excluirTurma(t);
+        retorno = turmaOP.excluirTurma(turmaOP.retornaTurmaPorId(t.getId()));
         if(retorno.length() != 0)
             mensagemErro = retorno;
+        listaTurmaView = turmaOP.retornaListaTurmaView();
     }
     
     public String adicionarTurma() {
@@ -129,23 +140,27 @@ public class TurmaMB implements Serializable {
             mensagemErro = retorno;
             return "criaTurma";
         } else {
+            listaTurmaView = turmaOP.retornaListaTurmaView();
             return "turma";
         }
     }
     
     public String alterarTurma(){
         String retorno = "";
+        // tratar para se existtir gente matriculada nesta cadeira não deixar alterar
+        turma.setNumVagasDisp(turma.getNumVagas());
         retorno = turmaOP.alterarTurma(turma);
         if(retorno.length() != 0){
             mensagemErro = retorno;
             return "criaTurma";
         } else {
+            listaTurmaView = turmaOP.retornaListaTurmaView();
             return "turma";
         }
     }
     
-    public String editarTurma(Turma t) {
-        turma = t;
+    public String editarTurma(TurmaView t) {
+        turma = turmaOP.retornaTurmaPorId(t.getId());
         return "editaTurma";
     }
     

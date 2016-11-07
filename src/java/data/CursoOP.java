@@ -93,7 +93,7 @@ public class CursoOP {
                         "UniversidadeWebPU");
         EntityManager manager = factory.createEntityManager();
 
-        Query query = manager.createQuery("SELECT c FROM Curso c WHERE id = " + id.toString());
+        Query query = manager.createQuery("SELECT c FROM Curso c WHERE c.id = " + id.toString());
         
         List<Curso> listaCurso = query.getResultList();
         

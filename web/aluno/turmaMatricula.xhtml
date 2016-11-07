@@ -44,31 +44,32 @@
                         <p><h:commandLink value="Turmas" action="#{loginMB.linkAlunoTurma()}" /> </p>
                     </div>
                     <div class="col-sm-8 text-left">
-                        <h:dataTable var="matricula" value="#{matriculaMB.listaMatriculaView}" styleClass="table table-bordered">
+                        <h:dataTable var="turmaMatricula" value="#{turmaMatriculaMB.listaTurmaMatricula}" styleClass="table table-bordered">
                             <f:facet name="header">
-                                <h:outputText value="Cursos Matriculados"/>
+                                <h:outputText value="Turmas Matriculadas"/>
                             </f:facet>
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="ID"/>
                                 </f:facet>
-                                <h:outputText value="#{matricula.id}"/>
+                                <!-- <h:outputText value="#{turmaMatricula.id}"/> -->
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Curso"/>
+                                    <h:outputText value="Matricula"/>
                                 </f:facet>
-                                <h:outputText value="#{matricula.nomeCurso}"/>
+                                <h:outputText value="#{turmaMatricula.codMatricula}"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="Opções"/>
                                 </f:facet>
-                                <h:commandButton value="Excluir" styleClass="btn btn-primary" action="#{matriculaMB.excluirMatricula(matricula)}" />
-                                <h:commandButton value="Turmas" styleClass="btn btn-primary" action="#{matriculaMB.turmaMatricula(matricula)}" />
+                                <!--<h:commandButton value="Excluir" styleClass="btn btn-primary" action="#{matriculaMB.excluirMatricula(matricula)}" />
+                                <h:commandButton value="Turmas" styleClass="btn btn-primary" action="#{matriculaMB.matriculaTurma(matricula)}" />-->
                             </h:column>
                         </h:dataTable> 
                         <h:commandButton value="Nova Matricula" styleClass="btn btn-primary" action="#{matriculaMB.criarMatricula()}"/>
+                        <h:button value="Voltar" styleClass="btn btn-primary" outcome="matricula"/>
                         <h:outputLabel value="#{matriculaMB.mensagemErro}" style="color: red" />
                     </div>
                     <div class="col-sm-2 sidenav">

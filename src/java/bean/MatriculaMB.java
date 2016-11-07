@@ -7,18 +7,18 @@ package bean;
 
 import data.CursoOP;
 import data.MatriculaOP;
+import data.TurmaMatriculaOP;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.el.ELResolver;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 import model.Curso;
 import model.Matricula;
+import model.TurmaMatricula;
+import view.MatriculaView;
 
 /**
  *
@@ -30,6 +30,7 @@ public class MatriculaMB implements Serializable {
 
     private List<Matricula> listaMatriculas;
     private List<Curso> listaCursos;
+    private List<MatriculaView> listaMatriculaView;
     private Matricula matricula;
     private String mensagemErro;
     private MatriculaOP matriculaOP;
@@ -44,6 +45,7 @@ public class MatriculaMB implements Serializable {
         idUsuario = retornaCodigoUsuario();
         listaMatriculas = retornaListaMatriculas();
         listaCursos = cursoOP.retornaListaCurso();
+        listaMatriculaView = matriculaOP.retornaListaMatriculaViewPorUsuario(idUsuario);
     }
 
     public List<Matricula> getListaMatriculas() {
@@ -94,15 +96,30 @@ public class MatriculaMB implements Serializable {
         this.cursoOP = cursoOP;
     }
 
+    public List<MatriculaView> getListaMatriculaView() {
+        return listaMatriculaView;
+    }
+
+    public void setListaMatriculaView(List<MatriculaView> listaMatriculaView) {
+        this.listaMatriculaView = listaMatriculaView;
+    }
+
+    /* Métodos  */
     public List<Matricula> retornaListaMatriculas(){
             return matriculaOP.retornaListaMatriculaPorUsuario(idUsuario);
     }
     
-    public void excluirMatricula(Matricula m){
+    public void excluirMatricula(MatriculaView m){
         String retorno = "";
-        retorno = matriculaOP.excluirMatricula(m);
+        retorno = matriculaOP.excluirMatricula(matriculaOP.retornaMatriculaPorId(m.getId()));
+        listaMatriculaView = matriculaOP.retornaListaMatriculaViewPorUsuario(idUsuario);
         if(retorno.length() != 0)
             mensagemErro = retorno;
+    }
+    
+    public String turmaMatricula(MatriculaView m){
+        matricula = matriculaOP.retornaMatriculaPorId(m.getId());
+        return "turmaMatricula";
     }
     
     public String criarMatricula() {
@@ -118,6 +135,7 @@ public class MatriculaMB implements Serializable {
             mensagemErro = retorno;
             return "criaMatricula";
         } else {
+            listaMatriculaView = matriculaOP.retornaListaMatriculaViewPorUsuario(idUsuario);
             return "matricula";
         }
     }

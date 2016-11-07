@@ -10,7 +10,6 @@ import data.TipoCursoOP;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import model.Curso;
 import model.TipoCurso;
@@ -32,7 +31,7 @@ public class CursoMB implements Serializable {
     private String mensagemErro;
     private CursoOP cursoOP;
     private TipoCursoOP tipoCursoOP;
-    
+
     public CursoMB() {
         cursoOP = new CursoOP();
         tipoCursoOP = new TipoCursoOP();
@@ -87,45 +86,46 @@ public class CursoMB implements Serializable {
     public void setListaTipoCursos(List<TipoCurso> listaTipoCursos) {
         this.listaTipoCursos = listaTipoCursos;
     }
-    
+
     public List<Curso> retornaListaCurso() {
         return cursoOP.retornaListaCurso();
     }
-    
+
     public void excluirCurso(Curso c) {
         String retorno = "";
         retorno = cursoOP.excluirCurso(c);
-        if(retorno.length() != 0)
+        if (retorno.length() != 0) {
             mensagemErro = retorno;
+        }
     }
-    
+
     public String adicionarCurso() {
         String retorno = "";
         retorno = cursoOP.adicionarCurso(curso);
-        if(retorno.length() != 0){
+        if (retorno.length() != 0) {
             mensagemErro = retorno;
             return "criaCurso";
         } else {
             return "curso";
         }
     }
-    
-    public String alterarCurso(){
-                String retorno = "";
+
+    public String alterarCurso() {
+        String retorno = "";
         retorno = cursoOP.alterarCurso(curso);
-        if(retorno.length() != 0){
+        if (retorno.length() != 0) {
             mensagemErro = retorno;
             return "criaCurso";
         } else {
             return "curso";
         }
     }
-    
+
     public String editarCurso(Curso c) {
         curso = c;
         return "editaCurso";
     }
-    
+
     public String criarCurso() {
         curso = new Curso();
         return "criaCurso";

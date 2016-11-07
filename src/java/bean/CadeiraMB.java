@@ -5,11 +5,11 @@
  */
 package bean;
 
+import data.CadeiraOP;
 import data.CursoOP;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -17,6 +17,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.Cadeira;
 import model.Curso;
+import view.CadeiraView;
 
 /**
  *
@@ -31,14 +32,18 @@ public class CadeiraMB implements Serializable {
      */
     private List<Cadeira> listaCadeiras;
     private List<Curso> listaCursos;
+    private List<CadeiraView> listaCadeiraView;
     private Cadeira cadeira;
+    private CadeiraOP cadeiraOP;
     private CursoOP cursoOP;
     private String mensagemErro;
     
     public CadeiraMB() {
         cursoOP = new CursoOP();
+        cadeiraOP = new CadeiraOP();
         listaCadeiras = retornaListaCadeira();
         listaCursos = cursoOP.retornaListaCurso();
+        listaCadeiraView = cadeiraOP.retornaCadeiraView();
     }
 
     public List<Cadeira> getListaCadeiras() {
@@ -72,76 +77,69 @@ public class CadeiraMB implements Serializable {
     public void setMensagemErro(String mensagemErro) {
         this.mensagemErro = mensagemErro;
     }
-    
-    public List<Cadeira> retornaListaCadeira() {
-        EntityManagerFactory factory
-                = Persistence.createEntityManagerFactory(
-                        "UniversidadeWebPU");
-        EntityManager manager = factory.createEntityManager();
 
-        Query query = manager.createQuery(
-                "SELECT c FROM Cadeira c");
-        List<Cadeira> listaCadeira = query.getResultList();
+    public List<CadeiraView> getListaCadeiraView() {
+        return listaCadeiraView;
+    }
 
-        factory.close();
+    public void setListaCadeiraView(List<CadeiraView> listaCadeiraView) {
+        this.listaCadeiraView = listaCadeiraView;
+    }
 
-        return listaCadeira;
+    public CadeiraOP getCadeiraOP() {
+        return cadeiraOP;
+    }
+
+    public void setCadeiraOP(CadeiraOP cadeiraOP) {
+        this.cadeiraOP = cadeiraOP;
+    }
+
+    public CursoOP getCursoOP() {
+        return cursoOP;
+    }
+
+    public void setCursoOP(CursoOP cursoOP) {
+        this.cursoOP = cursoOP;
     }
     
-    public void excluirCadeira(Cadeira c) {
-        try {
-            EntityManagerFactory factory = Persistence.createEntityManagerFactory("UniversidadeWebPU");
-
-            EntityManager manager = factory.createEntityManager();
-            
-            manager.getTransaction().begin();
-            manager.remove(manager.merge(c));
-            manager.getTransaction().commit();
-            
-            factory.close();
-            
-        } catch (Exception ex) {
-            mensagemErro = ex.getMessage();
-        }
+    public List<Cadeira> retornaListaCadeira() {
+        return cadeiraOP.retornaListaCadeira();
+    }
+    
+    public void excluirCadeira(CadeiraView c) {
+        String retorno = "";
+        retorno = cadeiraOP.excluirCadeira(cadeiraOP.retornaCadeiraPorId(c.getId()));
+        if(retorno.length() != 0)
+            mensagemErro = retorno;
+        listaCadeiraView = cadeiraOP.retornaCadeiraView();
     }
     
     public String adicionarCadeira() {
-        try {
-            EntityManagerFactory factory = Persistence.createEntityManagerFactory("UniversidadeWebPU");
-
-            EntityManager manager = factory.createEntityManager();
-            manager.getTransaction().begin();
-            manager.persist(cadeira);
-            manager.getTransaction().commit();
-
-            factory.close();
+        String retorno = "";
+        retorno = cadeiraOP.adicionarCadeira(cadeira);
+        if(retorno.length() != 0){
+            mensagemErro = retorno;
+            return "criaCadeira";
+        } else {
+            listaCadeiraView = cadeiraOP.retornaCadeiraView();
             return "cadeira";
-        } catch (Exception ex) {
-            mensagemErro = ex.getMessage();
         }
-        return "criaCadeira";
     }
     
     public String alterarcadeira(){
-        try{
-            EntityManagerFactory factory = Persistence.createEntityManagerFactory("UniversidadeWebPU");
-
-            EntityManager manager = factory.createEntityManager();
-            manager.getTransaction().begin();
-            manager.merge(cadeira);
-            manager.getTransaction().commit();
-
-            factory.close();
-            
+        String retorno = "";
+        retorno = cadeiraOP.alterarCadeira(cadeira);
+        if (retorno.length() != 0) {
+            mensagemErro = retorno;
+            return "criaCadeira";
+        } else {
+            listaCadeiraView = cadeiraOP.retornaCadeiraView();
             return "cadeira";
-        } catch (Exception ex){
-            mensagemErro = ex.getMessage();
         }
-        return "criaCadeira";
     }
     
-    public String editarCadeira(Cadeira c) {
-        cadeira = c;
+    public String editarCadeira(CadeiraView c) {
+        cadeira = cadeiraOP.retornaCadeiraPorId(c.getId());
         return "editaCadeira";
     }
     

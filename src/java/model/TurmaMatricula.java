@@ -16,16 +16,17 @@ import javax.persistence.Id;
  * @author mi
  */
 @Entity
-public class Cadeira implements Serializable {
+public class TurmaMatricula implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     
-    private String nome;
-    private Integer codCurso;
-    private Integer cargaHoraria;
+    private Integer codTurma;
+    private Integer codMatricula;
+    private Integer nota;
+    private Integer codProfessor;
 
     public Integer getId() {
         return id;
@@ -35,28 +36,36 @@ public class Cadeira implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public Integer getCodTurma() {
+        return codTurma;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setCodTurma(Integer codTurma) {
+        this.codTurma = codTurma;
     }
 
-    public Integer getCodCurso() {
-        return codCurso;
+    public Integer getCodMatricula() {
+        return codMatricula;
     }
 
-    public void setCodCurso(Integer codCurso) {
-        this.codCurso = codCurso;
+    public void setCodMatricula(Integer codMatricula) {
+        this.codMatricula = codMatricula;
     }
 
-    public Integer getCargaHoraria() {
-        return cargaHoraria;
+    public Integer getNota() {
+        return nota;
     }
 
-    public void setCargaHoraria(Integer cargaHoraria) {
-        this.cargaHoraria = cargaHoraria;
+    public void setNota(Integer nota) {
+        this.nota = nota;
+    }
+
+    public Integer getCodProfessor() {
+        return codProfessor;
+    }
+
+    public void setCodProfessor(Integer codProfessor) {
+        this.codProfessor = codProfessor;
     }
 
     @Override
@@ -69,10 +78,10 @@ public class Cadeira implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cadeira)) {
+        if (!(object instanceof TurmaMatricula)) {
             return false;
         }
-        Cadeira other = (Cadeira) object;
+        TurmaMatricula other = (TurmaMatricula) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -81,7 +90,7 @@ public class Cadeira implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Cadeira[ id=" + id + " ]";
+        return "model.TurmaMatricula[ id=" + id + " ]";
     }
     
 }

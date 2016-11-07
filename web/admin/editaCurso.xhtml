@@ -51,8 +51,8 @@
                             <h:inputText id="idNome" value="#{cursoMB.curso.nome}"  />
 
                             <h:outputLabel for="idTipoCurso" value="Tipo Curso"/>
-                            <h:selectOneMenu id="idTipoCurso" value="#{cursoMB.curso.tipoCurso}">
-                                <f:selectItems value="#{cursoMB.listaTipoCursos}" var="tipoCurso"
+                            <h:selectOneMenu id="idTipoCurso" value="#{cursoMB.curso.tipoCurso}" class="btn btn-primary dropdown-toggle">
+                                <f:selectItems class="dropdown-menu" value="#{cursoMB.listaTipoCursos}" var="tipoCurso"
                                                itemValue="#{tipoCurso.tipoCurso}" itemLabel="#{tipoCurso.tipoCurso}"/>
                             </h:selectOneMenu>
 

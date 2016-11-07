@@ -46,7 +46,7 @@
                         <p><h:commandLink value="Turma" action="#{loginMB.linkCadastroTurma()}" /> </p>
                     </div>
                     <div class="col-sm-8 text-left">
-                        <h:dataTable var="cadeira" value="#{cadeiraMB.retornaListaCadeira()}" styleClass="table table-bordered">
+                        <h:dataTable var="cadeira" value="#{cadeiraMB.listaCadeiraView}" styleClass="table table-bordered">
                             <f:facet name="header">
                                 <h:outputText value="Tabela de Cadeiras"/>
                             </f:facet>
@@ -60,13 +60,13 @@
                                 <f:facet name="header">
                                     <h:outputText value="Nome"/>
                                 </f:facet>
-                                <h:outputText value="#{cadeira.nome}"/>
+                                <h:outputText value="#{cadeira.nomeCadeira}"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Cadeira"/>
+                                    <h:outputText value="Curso"/>
                                 </f:facet>
-                                <h:outputText value="#{cadeira.codCurso}"/>
+                                <h:outputText value="#{cadeira.nomeCurso}"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">

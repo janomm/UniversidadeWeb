@@ -12,55 +12,55 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.Matricula;
-import view.MatriculaView;
+import model.TurmaMatricula;
 
 /**
  *
  * @author mi
  */
-public class MatriculaOP {
+public class TurmaMatriculaOP {
 
-    public MatriculaOP() {
+    public TurmaMatriculaOP() {
     }
     
-    public List<Matricula> retornaListaMatricula(){
+        public List<TurmaMatricula> retornaListaTurmaMatricula(){
         EntityManagerFactory factory
                 = Persistence.createEntityManagerFactory(
                         "UniversidadeWebPU");
         EntityManager manager = factory.createEntityManager();
 
         Query query = manager.createQuery(
-                "SELECT m FROM Matricula m");
-        List<Matricula> listaMatricula = query.getResultList();
+                "SELECT t FROM TurmaMatricula t");
+        List<TurmaMatricula> listaTurmaMatricula = query.getResultList();
 
         factory.close();
 
-        return listaMatricula;
+        return listaTurmaMatricula;
     }
     
-    public List<Matricula> retornaListaMatriculaPorUsuario(Integer id){
+    public List<TurmaMatricula> retornaListaTurmaMatriculaPorId(Integer id){
         EntityManagerFactory factory
                 = Persistence.createEntityManagerFactory(
                         "UniversidadeWebPU");
         EntityManager manager = factory.createEntityManager();
 
         Query query = manager.createQuery(
-                "SELECT m FROM Matricula m WHERE m.codUsuario = " + id.toString());
-        List<Matricula> listaMatricula = query.getResultList();
+                "SELECT t FROM TurmaMatricula t WHERE t.id = " + id.toString());
+        List<TurmaMatricula> listaTurmaMatricula = query.getResultList();
 
         factory.close();
 
-        return listaMatricula;
+        return listaTurmaMatricula;
     }
     
-    public String excluirMatricula(Matricula m) {
+    public String excluirTurmaMatricula(TurmaMatricula t) {
         try {
             EntityManagerFactory factory = Persistence.createEntityManagerFactory("UniversidadeWebPU");
 
             EntityManager manager = factory.createEntityManager();
             
             manager.getTransaction().begin();
-            manager.remove(manager.merge(m));
+            manager.remove(manager.merge(t));
             manager.getTransaction().commit();
             
             factory.close();
@@ -71,13 +71,13 @@ public class MatriculaOP {
         }
     }
     
-    public String adicionarMatricula(Matricula matricula) {
+    public String adicionarTurmaMatricula(TurmaMatricula turmaMatricula) {
         try {
             EntityManagerFactory factory = Persistence.createEntityManagerFactory("UniversidadeWebPU");
 
             EntityManager manager = factory.createEntityManager();
             manager.getTransaction().begin();
-            manager.persist(matricula);
+            manager.persist(turmaMatricula);
             manager.getTransaction().commit();
 
             factory.close();
@@ -87,13 +87,13 @@ public class MatriculaOP {
         }
     }
     
-    public String alterarMatricula(Matricula matricula){
+    public String alterarTurmaMatricula(TurmaMatricula turmaMatricula){
         try{
             EntityManagerFactory factory = Persistence.createEntityManagerFactory("UniversidadeWebPU");
 
             EntityManager manager = factory.createEntityManager();
             manager.getTransaction().begin();
-            manager.merge(matricula);
+            manager.merge(turmaMatricula);
             manager.getTransaction().commit();
 
             factory.close();
@@ -104,26 +104,40 @@ public class MatriculaOP {
         }
     }
     
-    public Matricula retornaMatriculaPorId(Integer id){
+    public List<TurmaMatricula> retornaTurmaMatriculaPorMatricula(Integer id){
+        MatriculaOP matriculaOP = new MatriculaOP();
+        Matricula m = matriculaOP.retornaMatriculaPorId(id);
+        
         EntityManagerFactory factory
                 = Persistence.createEntityManagerFactory(
                         "UniversidadeWebPU");
         EntityManager manager = factory.createEntityManager();
 
-        Query query = manager.createQuery("SELECT m FROM Matricula m WHERE m.id = " + id.toString());
+        Query query = manager.createQuery("SELECT t FROM TurmaMatricula t WHERE t.codMatricula = " + m.getId());
         
-        List<Matricula> listaMatricula = query.getResultList();
-        
-        Matricula mRetorno = new Matricula();
-        for (Matricula m : listaMatricula){
-            mRetorno = m;
-        }        
+        List<TurmaMatricula> listaTurmaMatricula = query.getResultList();
         
         factory.close();
-        return mRetorno;
+        return listaTurmaMatricula;
     }
     
-    public List<MatriculaView> retornaListaMatriculaViewPorUsuario(Integer id){
+    /*public List<TurmaMatricula> retornaTurmaMatriculaPor(Integer id){
+        MatriculaOP matriculaOP = new MatriculaOP();
+        Matricula m = matriculaOP.retornaMatriculaPorId(id);
+        EntityManagerFactory factory
+                = Persistence.createEntityManagerFactory(
+                        "UniversidadeWebPU");
+        EntityManager manager = factory.createEntityManager();
+
+        Query query = manager.createQuery("SELECT t FROM Turma t WHERE t.codMatricula = " + id.toString());
+        
+        List<TurmaMatricula> listaTurmaMatricula = query.getResultList();
+        
+        factory.close();
+        return listaTurmaMatricula;
+    }*/
+    
+    /*public List<MatriculaView> retornaListaMatriculaViewPorUsuario(Integer id){
         List<Matricula> listaMatricula = retornaListaMatriculaPorUsuario(id);
         CursoOP cursoOP = new CursoOP();
         List<MatriculaView> listaMatriculaView = new ArrayList<MatriculaView>();
@@ -135,5 +149,6 @@ public class MatriculaOP {
             listaMatriculaView.add(mv);
         }
         return listaMatriculaView;
-    }
+    }*/
+    
 }

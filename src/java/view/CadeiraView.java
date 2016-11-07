@@ -9,14 +9,13 @@ package view;
  *
  * @author mi
  */
-public class TurmaView {
-
+public class CadeiraView {
     private Integer id;
-    private String nomeCurso;
     private String nomeCadeira;
-    private Integer vagas;
-    
-    public TurmaView() {
+    private String nomeCurso;
+    private Integer cargaHoraria;
+
+    public CadeiraView() {
     }
 
     public Integer getId() {
@@ -27,14 +26,6 @@ public class TurmaView {
         this.id = id;
     }
 
-    public String getNomeCurso() {
-        return nomeCurso;
-    }
-
-    public void setNomeCurso(String nomeCurso) {
-        this.nomeCurso = nomeCurso;
-    }
-
     public String getNomeCadeira() {
         return nomeCadeira;
     }
@@ -43,11 +34,21 @@ public class TurmaView {
         this.nomeCadeira = nomeCadeira;
     }
 
-    public Integer getVagas() {
-        return vagas;
+    public String getNomeCurso() {
+        return nomeCurso;
     }
 
-    public void setVagas(Integer vagas) {
-        this.vagas = vagas;
+    public void setNomeCurso(String nomeCurso) {
+        this.nomeCurso = nomeCurso;
     }
+
+    public Integer getCargaHoraria() {
+        return cargaHoraria;
+    }
+
+    public void setCargaHoraria(Integer cargaHoraria) {
+        this.cargaHoraria = cargaHoraria;
+    }
+    
+    
 }

@@ -5,12 +5,14 @@
  */
 package data;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.Turma;
+import view.TurmaView;
 
 /**
  *
@@ -94,7 +96,7 @@ public class TurmaOP {
                         "UniversidadeWebPU");
         EntityManager manager = factory.createEntityManager();
 
-        Query query = manager.createQuery("SELECT t FROM Turma t WHERE id = " + id.toString());
+        Query query = manager.createQuery("SELECT t FROM Turma t WHERE t.id = " + id.toString());
         
         List<Turma> listaTurma = query.getResultList();
         
@@ -105,6 +107,22 @@ public class TurmaOP {
         
         factory.close();
         return tRetorno;
-        
+    }
+    
+    public List<TurmaView> retornaListaTurmaView() {
+        List<Turma> listaTurmas = retornaListaTurma();
+        CadeiraOP cadeiraOP = new CadeiraOP();
+        CursoOP cursoOP = new CursoOP();
+        List<TurmaView> listaTurmaView = new ArrayList<TurmaView>();
+        for(Turma t : listaTurmas){
+            TurmaView tv = new TurmaView();
+            tv.setId(t.getId());
+            tv.setNomeCadeira(cadeiraOP.retornaCadeiraPorId(t.getCodCadeira()).getNome());
+            tv.setNomeCurso(cursoOP.retornaCursoPorId(cadeiraOP.retornaCadeiraPorId(t.getCodCadeira()).getCodCurso()).getNome());
+            tv.setVagas(t.getNumVagasDisp());
+            
+            listaTurmaView.add(tv);
+        }
+        return listaTurmaView;
     }
 }

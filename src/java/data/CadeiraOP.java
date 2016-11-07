@@ -5,12 +5,14 @@
  */
 package data;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.Cadeira;
+import view.CadeiraView;
 
 /**
  *
@@ -93,7 +95,7 @@ public class CadeiraOP {
                         "UniversidadeWebPU");
         EntityManager manager = factory.createEntityManager();
 
-        Query query = manager.createQuery("SELECT c FROM Cadeira c WHERE id = " + id.toString());
+        Query query = manager.createQuery("SELECT c FROM Cadeira c WHERE c.id = " + id.toString());
         
         List<Cadeira> listaCadeira = query.getResultList();
         
@@ -104,5 +106,20 @@ public class CadeiraOP {
         
         factory.close();
         return cRetorno;
+    }
+    
+    public List<CadeiraView> retornaCadeiraView(){
+        List<Cadeira> listaCadeiras = retornaListaCadeira();
+        CursoOP cursoOP = new CursoOP();
+        List<CadeiraView> listaCadeiraView = new ArrayList<CadeiraView>();
+        for(Cadeira c : listaCadeiras){
+            CadeiraView cv = new CadeiraView();
+            cv.setId(c.getId());
+            cv.setNomeCadeira(c.getNome());
+            cv.setNomeCurso(cursoOP.retornaCursoPorId(c.getCodCurso()).getNome());
+            cv.setCargaHoraria(c.getCargaHoraria());
+            listaCadeiraView.add(cv);
+        }
+        return listaCadeiraView;
     }
 }

@@ -46,11 +46,11 @@
                     <div class="col-sm-8 text-left">
                         <h:panelGrid columns="2" border="0" styleClass="table table-bordered" >
                             <h:outputLabel for="idCodCurso" value="Curso: "/>
-                            <h:selectOneMenu id="idCodCurso" value="#{matriculaMB.matricula.codCurso}">
-                                <f:selectItems value="#{matriculaMB.listaCursos}" var="curso"
+                            <h:selectOneMenu id="idCodCurso" value="#{matriculaMB.matricula.codCurso}" class="btn btn-primary dropdown-toggle">
+                                <f:selectItems class="dropdown-menu" value="#{matriculaMB.listaCursos}" var="curso"
                                                itemValue="#{curso.id}" itemLabel="#{curso.nome}"/>
                             </h:selectOneMenu>
-
+                            
                             <h:commandButton value="Cadastrar" styleClass="btn btn-primary" action="#{matriculaMB.adicionarMatricula()}"/>
                             <h:button value="Voltar" styleClass="btn btn-primary" outcome="matricula"/>
                         </h:panelGrid>
