@@ -41,13 +41,14 @@
                         <p><h1>Cadastros</h1></p>
                         <p><h:commandLink value="Usuário" action="#{loginMB.linkCadastroUsuario()}" /> </p>
                         <p><h:commandLink value="Curso" action="#{loginMB.linkCadastroCurso()}" /> </p>
+                        <p><h:commandLink value="Tipo Curso" action="#{loginMB.linkCadastroTipoCurso()}" /> </p>
                         <p><b>Cadeira</b></p>
                         <p><h:commandLink value="Turma" action="#{loginMB.linkCadastroTurma()}" /> </p>
                     </div>
                     <div class="col-sm-8 text-left">
                         <h:dataTable var="cadeira" value="#{cadeiraMB.retornaListaCadeira()}" styleClass="table table-bordered">
                             <f:facet name="header">
-                                <h:outputText value="Tabela de Cursos"/>
+                                <h:outputText value="Tabela de Cadeiras"/>
                             </f:facet>
                             <h:column>
                                 <f:facet name="header">
@@ -63,9 +64,9 @@
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Area"/>
+                                    <h:outputText value="Cadeira"/>
                                 </f:facet>
-                                <h:outputText value="#{cadeira.area}"/>
+                                <h:outputText value="#{cadeira.codCurso}"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">

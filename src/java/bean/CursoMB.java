@@ -6,12 +6,14 @@
 package bean;
 
 import data.CursoOP;
+import data.TipoCursoOP;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import model.Curso;
+import model.TipoCurso;
 
 /**
  *
@@ -25,13 +27,16 @@ public class CursoMB implements Serializable {
      * Creates a new instance of CursoMB
      */
     private List<Curso> listaCursos;
+    private List<TipoCurso> listaTipoCursos;
     private Curso curso;
     private String mensagemErro;
     private CursoOP cursoOP;
+    private TipoCursoOP tipoCursoOP;
     
     public CursoMB() {
         cursoOP = new CursoOP();
-        listaCursos = new ArrayList<Curso>();
+        tipoCursoOP = new TipoCursoOP();
+        listaTipoCursos = tipoCursoOP.retornaListaTipoCurso();
         listaCursos = retornaListaCurso();
     }
 
@@ -57,6 +62,30 @@ public class CursoMB implements Serializable {
 
     public void setMensagemErro(String mensagemErro) {
         this.mensagemErro = mensagemErro;
+    }
+
+    public CursoOP getCursoOP() {
+        return cursoOP;
+    }
+
+    public void setCursoOP(CursoOP cursoOP) {
+        this.cursoOP = cursoOP;
+    }
+
+    public TipoCursoOP getTipoCursoOP() {
+        return tipoCursoOP;
+    }
+
+    public void setTipoCursoOP(TipoCursoOP tipoCursoOP) {
+        this.tipoCursoOP = tipoCursoOP;
+    }
+
+    public List<TipoCurso> getListaTipoCursos() {
+        return listaTipoCursos;
+    }
+
+    public void setListaTipoCursos(List<TipoCurso> listaTipoCursos) {
+        this.listaTipoCursos = listaTipoCursos;
     }
     
     public List<Curso> retornaListaCurso() {

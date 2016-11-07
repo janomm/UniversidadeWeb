@@ -165,16 +165,16 @@ public class LoginMB implements Serializable {
         return "turma";
     }
     
+    public String linkCadastroTipoCurso(){
+        return "tipoCurso";
+    }
+    
     public String linkAlunoMatricula(){
         return "matricula";
     }
     
     public String linkAlunoTurma(){
         return "turma";
-    }
-    
-    public String linkAlunoHistorico(){
-        return "historico";
     }
     
     private List<Usuario> retornaListaUsuario() {

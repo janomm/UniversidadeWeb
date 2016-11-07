@@ -41,6 +41,7 @@
                         <p><h1>Cadastros</h1></p>
                         <p><h:commandLink value="Usuário" action="#{loginMB.linkCadastroUsuario()}" /> </p>
                         <p><h:commandLink value="Curso" action="#{loginMB.linkCadastroCurso()}" /> </p>
+                        <p><h:commandLink value="Tipo Curso" action="#{loginMB.linkCadastroTipoCurso()}" /> </p>
                         <p><b>Cadeira</b></p>
                         <p><h:commandLink value="Turma" action="#{loginMB.linkCadastroTurma()}" /> </p>
                     </div>
@@ -49,8 +50,11 @@
                             <h:outputLabel for="idNome" value="Nome: "/>
                             <h:inputText id="idNome" value="#{cadeiraMB.cadeira.nome}"  />
 
-                            <h:outputLabel for="idArea" value="Area: "/>
-                            <h:inputText id="idArea" value="#{cadeiraMB.cadeira.area}" />
+                            <h:outputLabel for="idCodCurso" value="Curso: "/>
+                            <h:selectOneMenu id="idCodCurso" value="#{cadeiraMB.cadeira.codCurso}">
+                                <f:selectItems value="#{cadeiraMB.listaCursos}" var="curso"
+                                               itemValue="#{curso.id}" itemLabel="#{curso.nome}"/>
+                            </h:selectOneMenu>
 
                             <h:outputLabel for="idCargaHoraria" value="Carga Horaria: "/>
                             <h:inputText id="idCargaHoraria" value="#{cadeiraMB.cadeira.cargaHoraria}" />

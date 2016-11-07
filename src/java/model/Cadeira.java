@@ -20,11 +20,11 @@ public class Cadeira implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     
     private String nome;
-    private String area;
+    private String codCurso;
     private Integer cargaHoraria;
 
     public Integer getId() {
@@ -43,12 +43,12 @@ public class Cadeira implements Serializable {
         this.nome = nome;
     }
 
-    public String getArea() {
-        return area;
+    public String getCodCurso() {
+        return codCurso;
     }
 
-    public void setArea(String area) {
-        this.area = area;
+    public void setCodCurso(String codCurso) {
+        this.codCurso = codCurso;
     }
 
     public Integer getCargaHoraria() {
@@ -58,8 +58,6 @@ public class Cadeira implements Serializable {
     public void setCargaHoraria(Integer cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
     }
-    
-    
 
     @Override
     public int hashCode() {

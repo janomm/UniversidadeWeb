@@ -20,11 +20,11 @@ public class Curso implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     
     private String nome;
-    private String area;
+    private String tipoCurso;
     private Integer cargaHoraria;
     private Integer semestres;
     
@@ -44,12 +44,12 @@ public class Curso implements Serializable {
         this.nome = nome;
     }
 
-    public String getArea() {
-        return area;
+    public String getTipoCurso() {
+        return tipoCurso;
     }
 
-    public void setArea(String area) {
-        this.area = area;
+    public void setTipoCurso(String tipoCurso) {
+        this.tipoCurso = tipoCurso;
     }
 
     public Integer getCargaHoraria() {

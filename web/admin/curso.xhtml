@@ -41,6 +41,7 @@
                         <p><h1>Cadastros</h1></p>
                         <p><h:commandLink value="Usuário" action="#{loginMB.linkCadastroUsuario()}" /> </p>
                         <p><b>Curso</b></p>
+                        <p><h:commandLink value="Tipo Curso" action="#{loginMB.linkCadastroTipoCurso()}" /> </p>
                         <p><h:commandLink value="Cadeira" action="#{loginMB.linkCadastroCadeira()}" /> </p>
                         <p><h:commandLink value="Turma" action="#{loginMB.linkCadastroTurma()}" /> </p>
                     </div>
@@ -63,9 +64,9 @@
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Area"/>
+                                    <h:outputText value="Tipo Curso"/>
                                 </f:facet>
-                                <h:outputText value="#{curso.area}"/>
+                                <h:outputText value="#{curso.tipoCurso}"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">

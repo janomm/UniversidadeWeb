@@ -41,28 +41,20 @@
                         <p><h1>Cadastros</h1></p>
                         <p><h:commandLink value="Usuário" action="#{loginMB.linkCadastroUsuario()}" /> </p>
                         <p><h:commandLink value="Curso" action="#{loginMB.linkCadastroCurso()}" /> </p>
-                        <p><h:commandLink value="Tipo Curso" action="#{loginMB.linkCadastroTipoCurso()}" /> </p>
-                        <p><b>Cadeira</b></p>
+                        <p><b>Tipo Curso</b></p>
+                        <p><h:commandLink value="Cadeira" action="#{loginMB.linkCadastroCadeira()}" /> </p>
                         <p><h:commandLink value="Turma" action="#{loginMB.linkCadastroTurma()}" /> </p>
                     </div>
                     <div class="col-sm-8 text-left">
                         <h:panelGrid columns="2" border="0" styleClass="table table-bordered" >
-                            <h:outputLabel for="idNome" value="Nome: "/>
-                            <h:inputText id="idNome" value="#{cadeiraMB.cadeira.nome}"  />
+                            <h:outputLabel for="idTipoCurso" value="Tipo Curso:"/>
+                            <h:inputText id="idTipoCurso" value="#{tipoCursoMB.tipoCurso.tipoCurso}" />
 
-                            <h:outputLabel for="idCodCurso" value="Curso: "/>
-                            <h:selectOneMenu id="idCodCurso" value="#{cadeiraMB.cadeira.codCurso}">
-                                <f:selectItems value="#{cadeiraMB.listaCursos}" var="curso"
-                                               itemValue="#{curso.id}" itemLabel="#{curso.nome}"/>
-                            </h:selectOneMenu>
-
-                            <h:outputLabel for="idCargaHoraria" value="Carga Horaria: "/>
-                            <h:inputText id="idCargaHoraria" value="#{cadeiraMB.cadeira.cargaHoraria}" />
-
-                            <h:commandButton value="Cadastrar" styleClass="btn btn-primary" action="#{cadeiraMB.adicionarCadeira()}"/>
-                            <h:button value="Voltar" styleClass="btn btn-primary" outcome="cadeira"/>
+                            <h:commandButton value="Cadastrar" styleClass="btn btn-primary" action="#{tipoCursoMB.adicionarTipoCurso()}"/>
+                            <h:button value="Voltar" styleClass="btn btn-primary" outcome="tipoCurso"/>
                         </h:panelGrid>
-                        <h:outputLabel value="#{cadeiraMB.mensagemErro}" style="color: red" />
+                        <h:outputLabel value="#{tipoCursoMB.mensagemErro}" style="color: red" />
+
                     </div>
                     <div class="col-sm-2 sidenav">
                         <div class="well">
@@ -77,3 +69,4 @@
         </h:form>
     </h:body>
 </html>
+

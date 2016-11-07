@@ -5,6 +5,7 @@
  */
 package bean;
 
+import data.CursoOP;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.Cadeira;
+import model.Curso;
 
 /**
  *
@@ -28,12 +30,15 @@ public class CadeiraMB implements Serializable {
      * Creates a new instance of CadeiraMB
      */
     private List<Cadeira> listaCadeiras;
+    private List<Curso> listaCursos;
     private Cadeira cadeira;
+    private CursoOP cursoOP;
     private String mensagemErro;
     
     public CadeiraMB() {
-        listaCadeiras = new ArrayList<Cadeira>();
+        cursoOP = new CursoOP();
         listaCadeiras = retornaListaCadeira();
+        listaCursos = cursoOP.retornaListaCurso();
     }
 
     public List<Cadeira> getListaCadeiras() {
@@ -42,6 +47,14 @@ public class CadeiraMB implements Serializable {
 
     public void setListaCadeiras(List<Cadeira> listaCadeiras) {
         this.listaCadeiras = listaCadeiras;
+    }
+
+    public List<Curso> getListaCursos() {
+        return listaCursos;
+    }
+
+    public void setListaCursos(List<Curso> listaCursos) {
+        this.listaCursos = listaCursos;
     }
 
     public Cadeira getCadeira() {

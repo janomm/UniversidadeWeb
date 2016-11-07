@@ -16,15 +16,15 @@ import javax.persistence.Id;
  * @author mi
  */
 @Entity
-public class Turma implements Serializable {
+public class Matricula implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private Integer codCadeira;
-    private Integer numVagas;
-    private Integer numVagasDisp;
+    
+    private Integer codCurso;
+    private Integer codUsuario;
 
     public Integer getId() {
         return id;
@@ -34,28 +34,20 @@ public class Turma implements Serializable {
         this.id = id;
     }
 
-    public Integer getCodCadeira() {
-        return codCadeira;
+    public Integer getCodCurso() {
+        return codCurso;
     }
 
-    public void setCodCadeira(Integer codCadeira) {
-        this.codCadeira = codCadeira;
+    public void setCodCurso(Integer codCurso) {
+        this.codCurso = codCurso;
     }
 
-    public Integer getNumVagas() {
-        return numVagas;
+    public Integer getCodUsuario() {
+        return codUsuario;
     }
 
-    public void setNumVagas(Integer numVagas) {
-        this.numVagas = numVagas;
-    }
-
-    public Integer getNumVagasDisp() {
-        return numVagasDisp;
-    }
-
-    public void setNumVagasDisp(Integer numVagasDisp) {
-        this.numVagasDisp = numVagasDisp;
+    public void setCodUsuario(Integer codUsuario) {
+        this.codUsuario = codUsuario;
     }
     
     @Override
@@ -68,10 +60,10 @@ public class Turma implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Turma)) {
+        if (!(object instanceof Matricula)) {
             return false;
         }
-        Turma other = (Turma) object;
+        Matricula other = (Matricula) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -80,7 +72,7 @@ public class Turma implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Turma[ id=" + id + " ]";
+        return "model.Matricula[ id=" + id + " ]";
     }
     
 }

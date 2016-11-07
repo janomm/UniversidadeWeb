@@ -25,8 +25,8 @@
                     </div>
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav">
-                            <li><h:commandLink value="#{loginMB.linkProfessor()}" action="#{loginMB.direcionaProfessor()}" /></li>
-                            <li><h:commandLink value="#{loginMB.linkAluno()}" action="#{loginMB.direcionaAluno()}" /></li>
+                            <li><h:commandLink value="#{loginMB.linkAdministrador()}" action="#{loginMB.direcionaAdministrador()}" /></li>
+                            <li><h:commandLink value="#{loginMB.linkProfessor()}" action="#{loginMB.direcionaProfessor()}" /></li>                        
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li><h:commandLink action="#{loginMB.realizaLogout()}" ><span class="glyphicon glyphicon-log-in"></span> Logof</h:commandLink></li>
@@ -35,32 +35,24 @@
                 </div>
             </nav>
 
+            <!-- Área Lateral -->
             <div class="container-fluid text-center">
                 <div class="row content">
                     <div class="col-sm-2 sidenav">
-                        <p><h1>Cadastros</h1></p>
-                        <p><h:commandLink value="Usuário" action="#{loginMB.linkCadastroUsuario()}" /> </p>
-                        <p><h:commandLink value="Curso" action="#{loginMB.linkCadastroCurso()}" /> </p>
-                        <p><h:commandLink value="Tipo Curso" action="#{loginMB.linkCadastroTipoCurso()}" /> </p>
-                        <p><b>Cadeira</b></p>
-                        <p><h:commandLink value="Turma" action="#{loginMB.linkCadastroTurma()}" /> </p>
+                        <p><h1>Aluno</h1></p>
+                        <p><b>Matricula</b></p>
+                        <p><h:commandLink value="Turmas" action="#{loginMB.linkAlunoTurma()}" /> </p>
                     </div>
                     <div class="col-sm-8 text-left">
                         <h:panelGrid columns="2" border="0" styleClass="table table-bordered" >
-                            <h:outputLabel for="idNome" value="Nome: "/>
-                            <h:inputText id="idNome" value="#{cadeiraMB.cadeira.nome}"  />
-
                             <h:outputLabel for="idCodCurso" value="Curso: "/>
-                            <h:selectOneMenu id="idCodCurso" value="#{cadeiraMB.cadeira.codCurso}">
-                                <f:selectItems value="#{cadeiraMB.listaCursos}" var="curso"
+                            <h:selectOneMenu id="idCodCurso" value="#{matriculaMB.matricula.codCurso}">
+                                <f:selectItems value="#{matriculaMB.listaCursos}" var="curso"
                                                itemValue="#{curso.id}" itemLabel="#{curso.nome}"/>
                             </h:selectOneMenu>
 
-                            <h:outputLabel for="idCargaHoraria" value="Carga Horaria: "/>
-                            <h:inputText id="idCargaHoraria" value="#{cadeiraMB.cadeira.cargaHoraria}" />
-
-                            <h:commandButton value="Cadastrar" styleClass="btn btn-primary" action="#{cadeiraMB.adicionarCadeira()}"/>
-                            <h:button value="Voltar" styleClass="btn btn-primary" outcome="cadeira"/>
+                            <h:commandButton value="Cadastrar" styleClass="btn btn-primary" action="#{matriculaMB.adicionarMatricula()}"/>
+                            <h:button value="Voltar" styleClass="btn btn-primary" outcome="matricula"/>
                         </h:panelGrid>
                         <h:outputLabel value="#{cadeiraMB.mensagemErro}" style="color: red" />
                     </div>
@@ -77,3 +69,4 @@
         </h:form>
     </h:body>
 </html>
+

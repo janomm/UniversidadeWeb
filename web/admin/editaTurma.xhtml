@@ -41,16 +41,17 @@
                         <p><h1>Cadastros</h1></p>
                         <p><h:commandLink value="Usuário" action="#{loginMB.linkCadastroUsuario()}" /> </p>
                         <p><h:commandLink value="Curso" action="#{loginMB.linkCadastroCurso()}" /> </p>
+                        <p><h:commandLink value="Tipo Curso" action="#{loginMB.linkCadastroTipoCurso()}" /> </p>
                         <p><h:commandLink value="Cadeira" action="#{loginMB.linkCadastroCadeira()}" /> </p>
                         <p><b>Turma</b></p>
                     </div>
                     <div class="col-sm-8 text-left">
                         <h:panelGrid columns="2" border="0" styleClass="table table-bordered" >
-                            <h:outputLabel for="idCodCurso" value="Curso:"/>
+                           <!-- <h:outputLabel for="idCodCurso" value="Curso:"/>
                             <h:selectOneMenu id="idCodCurso" value="#{turmaMB.turma.codCurso}">
                                 <f:selectItems value="#{turmaMB.listaCursos}" var="curso"
                                                itemValue="#{curso.id}" itemLabel="#{curso.nome}"/>
-                            </h:selectOneMenu>
+                            </h:selectOneMenu> -->
                             
                             <h:outputLabel for="idCodCadeira" value="Cadeira:"/>
                             <h:selectOneMenu id="idCodcadeira" value="#{turmaMB.turma.codCadeira}">
