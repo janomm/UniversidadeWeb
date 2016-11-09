@@ -5,6 +5,7 @@
  */
 package bean;
 
+import data.UsuarioOP;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +30,11 @@ public class UsuarioMB implements Serializable {
      */
     private List<Usuario> listaUsuarios;
     private Usuario usuario;
+    private UsuarioOP usuarioOP;
     private String mensagemErro;
 
     public UsuarioMB() {
+        usuarioOP = new UsuarioOP();
         listaUsuarios = new ArrayList<Usuario>();
         listaUsuarios = retornaListaUsuario();
     }
@@ -61,42 +64,39 @@ public class UsuarioMB implements Serializable {
     }
 
     public List<Usuario> retornaListaUsuario() {
-        EntityManagerFactory factory
-                = Persistence.createEntityManagerFactory(
-                        "UniversidadeWebPU");
-        EntityManager manager = factory.createEntityManager();
-
-        Query query = manager.createQuery(
-                "SELECT u FROM Usuario u");
-        List<Usuario> listaUsuarios = query.getResultList();
-
-        factory.close();
-
-        return listaUsuarios;
+        return usuarioOP.retornaListaUsuario();
     }
 
     public void excluirUsuario(Usuario u) {
-        try {
-            EntityManagerFactory factory = Persistence.createEntityManagerFactory("UniversidadeWebPU");
-
-            EntityManager manager = factory.createEntityManager();
-            
-            /*String strQuery = "DELETE FROM Usuario WHERE id = " + u.getId();
-            
-            manager.getTransaction().begin();
-            manager.createQuery(strQuery).executeUpdate();
-            manager.getTransaction().commit();*/
-            manager.getTransaction().begin();
-            manager.remove(manager.merge(u));
-            manager.getTransaction().commit();
-            
-            factory.close();
-            
-        } catch (Exception ex) {
-            mensagemErro = ex.getMessage();
+        String retorno = "";
+        retorno = usuarioOP.excluirUsuario(u);
+        if (retorno.length() != 0) {
+            mensagemErro = retorno;
         }
     }
 
+    public String adicionarUsuario() {
+        String retorno = "";
+        retorno = usuarioOP.adicionarUsuario(usuario);
+        if (retorno.length() != 0) {
+            mensagemErro = retorno;
+            return "criaUsuario";
+        } else {
+            return "usuario";
+        }
+    }
+    
+    public String alterarUsuario(){
+        String retorno = "";
+        retorno = usuarioOP.alterarUsuario(usuario);
+        if (retorno.length() != 0) {
+            mensagemErro = retorno;
+            return "criaUsuario";
+        } else {
+            return "usuario";
+        }
+    }
+    
     public String editarUsuario(Usuario u) {
         usuario = u;
         return "editaUsuario";
@@ -106,41 +106,5 @@ public class UsuarioMB implements Serializable {
         usuario = new Usuario();
         return "criaUsuario";
     }
-
-    public String adicionarUsuario() {
-        try {
-            EntityManagerFactory factory = Persistence.createEntityManagerFactory("UniversidadeWebPU");
-
-            EntityManager manager = factory.createEntityManager();
-            manager.getTransaction().begin();
-            manager.persist(usuario);
-            manager.getTransaction().commit();
-
-            factory.close();
-            return "usuario";
-        } catch (Exception ex) {
-            mensagemErro = ex.getMessage();
-        }
-        return "criaUsuario";
-    }
-    
-    public String alterarUsuario(){
-        try{
-            EntityManagerFactory factory = Persistence.createEntityManagerFactory("UniversidadeWebPU");
-
-            EntityManager manager = factory.createEntityManager();
-            manager.getTransaction().begin();
-            manager.merge(usuario);
-            manager.getTransaction().commit();
-
-            factory.close();
-            
-            return "usuario";
-        } catch (Exception ex){
-            mensagemErro = ex.getMessage();
-        }
-        return "criaUsuario";
-    }
-    
 
 }

@@ -26,7 +26,7 @@
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav">
                             <li><h:commandLink value="#{loginMB.linkAdministrador()}" action="#{loginMB.direcionaAdministrador()}" /></li>
-                            <li><h:commandLink value="#{loginMB.linkProfessor()}" action="#{loginMB.direcionaProfessor()}" /></li>
+                            <li><h:commandLink value="#{loginMB.linkProfessor()}" action="#{loginMB.direcionaProfessor()}" /></li>                        
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li><h:commandLink action="#{loginMB.realizaLogout()}" ><span class="glyphicon glyphicon-log-in"></span> Logof</h:commandLink></li>
@@ -44,36 +44,29 @@
                         <p><h:commandLink value="Turmas" action="#{loginMB.linkAlunoTurma()}" /> </p>
                     </div>
                     <div class="col-sm-8 text-left">
-                        <h:dataTable var="turmaMatricula" value="#{turmaMatriculaMB.listaTurmaMatriculaView}" styleClass="table table-bordered">
+                        <h:dataTable var="turma" value="#{turmaMatriculaMB.listaTurmaView}" styleClass="table table-bordered">
                             <f:facet name="header">
-                                <h:outputText value="Turmas Matriculadas"/>
+                                <h:outputText value="Turmas"/>
                             </f:facet>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Curso"/>
-                                </f:facet>
-                                <h:outputText value="#{turmaMatricula.id}"/>
-                            </h:column>
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="Código Turma"/>
                                 </f:facet>
-                                <h:outputText value="#{turmaMatricula.codTurma}"/>
+                                <h:outputText value="#{turma.id}"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="Cadeira"/>
                                 </f:facet>
-                                <h:outputText value="#{turmaMatricula.nomeCadeira}"/>
+                                <h:outputText value="#{turma.nomeCadeira}"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="Opções"/>
                                 </f:facet>
-                                <h:commandButton value="Excluir" styleClass="btn btn-primary" action="#{turmaMatriculaMB.excluirTurmaMatricula(turmaMatricula)}" />
+                                <h:commandButton value="Matricular" styleClass="btn btn-primary" action="#{turmaMatriculaMB.adicionarTurmaMatricula(turma)}" />
                             </h:column>
-                        </h:dataTable>
-                        <h:commandButton value="Nova Matricula" styleClass="btn btn-primary" action="#{turmaMatriculaMB.criarTurmaMatricula()}"/>
+                        </h:dataTable> 
                         <h:button value="Voltar" styleClass="btn btn-primary" outcome="matricula"/>
                         <h:outputLabel value="#{turmaMatriculaMB.mensagemErro}" style="color: red" />
                     </div>

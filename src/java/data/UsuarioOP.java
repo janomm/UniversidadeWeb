@@ -5,79 +5,61 @@
  */
 package data;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import model.Cadeira;
-import view.CadeiraView;
+import model.Usuario;
 
 /**
  *
  * @author mi
  */
-public class CadeiraOP {
+public class UsuarioOP {
 
-    public CadeiraOP() {
+    public UsuarioOP() {
     }
     
-    public List<Cadeira> retornaListaCadeira() {
+    public List<Usuario> retornaListaUsuario() {
         EntityManagerFactory factory
                 = Persistence.createEntityManagerFactory(
                         "UniversidadeWebPU");
         EntityManager manager = factory.createEntityManager();
 
         Query query = manager.createQuery(
-                "SELECT c FROM Cadeira c");
-        List<Cadeira> listaCadeira = query.getResultList();
+                "SELECT u FROM Usuario u");
+        List<Usuario> listaUsuarios = query.getResultList();
 
         factory.close();
 
-        return listaCadeira;
+        return listaUsuarios;
     }
-    
-    public List<Cadeira> retornaListaCadeiraPorCurso(Integer id) {
-        EntityManagerFactory factory
-                = Persistence.createEntityManagerFactory(
-                        "UniversidadeWebPU");
-        EntityManager manager = factory.createEntityManager();
 
-        Query query = manager.createQuery(
-                "SELECT c FROM Cadeira c WHERE c.codCurso = " + id.toString());
-        List<Cadeira> listaCadeira = query.getResultList();
-
-        factory.close();
-
-        return listaCadeira;
-    }
-    
-    public String excluirCadeira(Cadeira c) {
+    public String excluirUsuario(Usuario u) {
         try {
             EntityManagerFactory factory = Persistence.createEntityManagerFactory("UniversidadeWebPU");
 
             EntityManager manager = factory.createEntityManager();
             
             manager.getTransaction().begin();
-            manager.remove(manager.merge(c));
+            manager.remove(manager.merge(u));
             manager.getTransaction().commit();
             
             factory.close();
             return "";
-            
         } catch (Exception ex) {
             return ex.getMessage();
         }
     }
-    
-    public String adicionarCadeira(Cadeira cadeira) {
+
+    public String adicionarUsuario(Usuario usuario) {
         try {
             EntityManagerFactory factory = Persistence.createEntityManagerFactory("UniversidadeWebPU");
 
             EntityManager manager = factory.createEntityManager();
             manager.getTransaction().begin();
-            manager.persist(cadeira);
+            manager.persist(usuario);
             manager.getTransaction().commit();
 
             factory.close();
@@ -87,13 +69,13 @@ public class CadeiraOP {
         }
     }
     
-    public String alterarCadeira(Cadeira cadeira){
+    public String alterarUsuario(Usuario usuario){
         try{
             EntityManagerFactory factory = Persistence.createEntityManagerFactory("UniversidadeWebPU");
 
             EntityManager manager = factory.createEntityManager();
             manager.getTransaction().begin();
-            manager.merge(cadeira);
+            manager.merge(usuario);
             manager.getTransaction().commit();
 
             factory.close();
@@ -104,37 +86,22 @@ public class CadeiraOP {
         }
     }
     
-    public Cadeira retornaCadeiraPorId(Integer id){
+    public Usuario retornaUsuarioPorId(Integer id){
         EntityManagerFactory factory
                 = Persistence.createEntityManagerFactory(
                         "UniversidadeWebPU");
         EntityManager manager = factory.createEntityManager();
 
-        Query query = manager.createQuery("SELECT c FROM Cadeira c WHERE c.id = " + id.toString());
+        Query query = manager.createQuery(
+                "SELECT u FROM Usuario u WHERE u.id = " + id.toString());
+        List<Usuario> listaUsuario = query.getResultList();
         
-        List<Cadeira> listaCadeira = query.getResultList();
-        
-        Cadeira cRetorno = new Cadeira();
-        for (Cadeira c : listaCadeira){
-            cRetorno = c;
+        Usuario uRetorno = new Usuario();
+        for (Usuario u : listaUsuario){
+            uRetorno = u;
         }        
         
         factory.close();
-        return cRetorno;
-    }
-    
-    public List<CadeiraView> retornaCadeiraView(){
-        List<Cadeira> listaCadeiras = retornaListaCadeira();
-        CursoOP cursoOP = new CursoOP();
-        List<CadeiraView> listaCadeiraView = new ArrayList<CadeiraView>();
-        for(Cadeira c : listaCadeiras){
-            CadeiraView cv = new CadeiraView();
-            cv.setId(c.getId());
-            cv.setNomeCadeira(c.getNome());
-            cv.setNomeCurso(cursoOP.retornaCursoPorId(c.getCodCurso()).getNome());
-            cv.setCargaHoraria(c.getCargaHoraria());
-            listaCadeiraView.add(cv);
-        }
-        return listaCadeiraView;
+        return uRetorno;
     }
 }
