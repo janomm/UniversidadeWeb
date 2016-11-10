@@ -46,7 +46,7 @@
                         <p><h:commandLink value="Turmas" action="#{loginMB.linkProfessorTurma()}" /> </p>
                     </div>
                     <div class="col-sm-8 text-left">
-                        <h:dataTable var="turmaConsulta" value="#{professorMB.listaTurmaConsulta}" styleClass="table table-bordered">
+                        <h:dataTable var="turma" value="#{professorMB.listaTurmaView}" styleClass="table table-bordered">
                             <f:facet name="header">
                                 <h:outputText value="Tabela de Turmas"/>
                             </f:facet>
@@ -54,17 +54,27 @@
                                 <f:facet name="header">
                                     <h:outputText value="Curso"/>
                                 </f:facet>
-                                <h:outputText value="#{turmaConsulta.curso}"/>
+                                <h:outputText value="#{turma.nomeCurso}"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="Cadeira"/>
                                 </f:facet>
-                                <h:outputText value="#{turmaConsulta.cadeira}"/>
+                                <h:outputText value="#{turma.nomeCadeira}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Professor"/>
+                                </f:facet>
+                                <h:outputText value="#{turma.professor}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Opções"/>
+                                </f:facet>
+                                <h:commandButton value="Ingressar" styleClass="btn btn-primary" action="#{professorMB.ingressarComoProfessor(turma)}" />
                             </h:column>
                         </h:dataTable> 
-                        <h:commandButton value="Nova Matricula" styleClass="btn btn-primary" action="#{matriculaMB.criarMatricula()}"/>
-                        <h:outputLabel value="#{matriculaMB.mensagemErro}" style="color: red" />
                     </div>
                     <div class="col-sm-2 sidenav">
                         <div class="well">

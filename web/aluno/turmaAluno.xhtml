@@ -26,7 +26,7 @@
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav">
                             <li><h:commandLink value="#{loginMB.linkAdministrador()}" action="#{loginMB.direcionaAdministrador()}" /></li>
-                            <li><h:commandLink value="#{loginMB.linkProfessor()}" action="#{loginMB.direcionaProfessor()}" /></li>                        
+                            <li><h:commandLink value="#{loginMB.linkProfessor()}" action="#{loginMB.direcionaProfessor()}" /></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li><h:commandLink action="#{loginMB.realizaLogout()}" ><span class="glyphicon glyphicon-log-in"></span> Logof</h:commandLink></li>
@@ -40,39 +40,41 @@
                 <div class="row content">
                     <div class="col-sm-2 sidenav">
                         <p><h1>Aluno</h1></p>
-                        <p><h:commandLink value="Matricula" action="#{loginMB.linkAlunoMatricula()}" /> </p>
-                        <p><b>Turma</b></p>
+                        <p><b>Matricula</b></p>
+                        <p><h:commandLink value="Turmas" action="#{loginMB.linkAlunoTurma()}" /> </p>
                     </div>
                     <div class="col-sm-8 text-left">
-                        <h:dataTable var="turma" value="#{turmaAlunoMB.listaTurmaAlunoView}" styleClass="table table-bordered">
+                        <h:dataTable var="turmaView" value="#{turmaAlunoMB.listaTurmaView}" styleClass="table table-bordered">
                             <f:facet name="header">
                                 <h:outputText value="Turmas"/>
                             </f:facet>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Curso"/>
-                                </f:facet>
-                                <h:outputText value="#{turma.curso}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
                                     <h:outputText value="Cadeira"/>
                                 </f:facet>
-                                <h:outputText value="#{turma.cadeira}"/>
+                                <h:outputText value="#{turmaView.nomeCadeira}"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="Professor"/>
                                 </f:facet>
-                                <h:outputLabel value="#{turma.professor}"/>
+                                <h:outputText value="#{turmaView.professor}"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Nota"/>
+                                    <h:outputText value="Vagas"/>
                                 </f:facet>
-                                <h:outputLabel value="#{turma.nota}"/>
+                                <h:outputText value="#{turmaView.vagas}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Opções"/>
+                                </f:facet>
+                                <h:commandButton value="Matricular" styleClass="btn btn-primary" action="#{turmaAlunoMB.adicionarTurmaAluno(turmaView)}" />
                             </h:column>
                         </h:dataTable>
+                        <h:button value="Voltar" styleClass="btn btn-primary" outcome="matricula"/>
+                        <h:outputLabel value="#{turmaMatriculaMB.mensagemErro}" style="color: red" />
                     </div>
                     <div class="col-sm-2 sidenav">
                         <div class="well">

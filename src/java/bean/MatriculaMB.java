@@ -119,7 +119,8 @@ public class MatriculaMB implements Serializable {
     
     public String turmaMatricula(MatriculaView m){
         matricula = matriculaOP.retornaMatriculaPorId(m.getId());
-        return "turmaMatricula";
+        //return "turmaMatricula";
+        return "turmaAluno";
     }
     
     public String criarMatricula() {

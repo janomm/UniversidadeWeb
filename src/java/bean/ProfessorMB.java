@@ -6,13 +6,17 @@
 package bean;
 
 import data.TurmaMatriculaOP;
+import data.TurmaOP;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
 import javax.el.ELResolver;
 import javax.faces.context.FacesContext;
+import model.Turma;
+import view.TurmaAlunoView;
 import view.TurmaConsulta;
+import view.TurmaView;
 
 /**
  *
@@ -25,50 +29,62 @@ public class ProfessorMB implements Serializable {
     /**
      * Creates a new instance of ProfessorMB
      */
-    private List<TurmaConsulta> listaTurmaConsulta;
-    private TurmaMatriculaOP turmaMatriculaOP;
-    private MatriculaMB matriculaMB;
+    private List<TurmaView> listaTurmaView;
+    private TurmaOP turmaOP;
+    private Turma turma;
+    private Integer codUsuario;
+    
     
     public ProfessorMB() {
-        matriculaMB = retornaMatriculaMB();
-        turmaMatriculaOP = new TurmaMatriculaOP();
-        listaTurmaConsulta = retornaListaTurmaConsulta();
+        turma = new Turma();
+        turmaOP = new TurmaOP();
+        listaTurmaView = turmaOP.retornaListaTurmaView();
+        codUsuario = retornaLoginMB().getUsuario().getId();
     }
 
-    public List<TurmaConsulta> getListaTurmaConsulta() {
-        return listaTurmaConsulta;
+    public List<TurmaView> getListaTurmaView() {
+        return listaTurmaView;
     }
 
-    public void setListaTurmaConsulta(List<TurmaConsulta> listaTurmaConsulta) {
-        this.listaTurmaConsulta = listaTurmaConsulta;
+    public void setListaTurmaView(List<TurmaView> listaTurmaView) {
+        this.listaTurmaView = listaTurmaView;
     }
 
-    public TurmaMatriculaOP getTurmaMatriculaOP() {
-        return turmaMatriculaOP;
+    public TurmaOP getTurmaOP() {
+        return turmaOP;
     }
 
-    public void setTurmaMatriculaOP(TurmaMatriculaOP turmaMatriculaOP) {
-        this.turmaMatriculaOP = turmaMatriculaOP;
+    public void setTurmaOP(TurmaOP turmaOP) {
+        this.turmaOP = turmaOP;
     }
 
-    public MatriculaMB getMatriculaMB() {
-        return matriculaMB;
+    public Turma getTurma() {
+        return turma;
     }
 
-    public void setMatriculaMB(MatriculaMB matriculaMB) {
-        this.matriculaMB = matriculaMB;
+    public void setTurma(Turma turma) {
+        this.turma = turma;
+    }
+
+    public Integer getCodUsuario() {
+        return codUsuario;
+    }
+
+    public void setCodUsuario(Integer codUsuario) {
+        this.codUsuario = codUsuario;
     }
     
-    
-    
-    public List<TurmaConsulta> retornaListaTurmaConsulta(){
-        return turmaMatriculaOP.retornaListaTurmaConsulta(matriculaMB.retornaCodigoUsuario());
+    public void ingressarComoProfessor(TurmaView t){
+        turma = turmaOP.retornaTurmaPorId(t.getId());
+        turma.setCodProfessor(codUsuario);
+        turmaOP.alterarTurma(turma);
+        listaTurmaView = turmaOP.retornaListaTurmaView();
     }
-    
-    public MatriculaMB retornaMatriculaMB(){
+
+    public LoginMB retornaLoginMB(){
         FacesContext context = FacesContext.getCurrentInstance();
         ELResolver resolver = context.getApplication().getELResolver();   
         //MatriculaMB matriculaMB = (MatriculaMB) resolver.getValue(context.getELContext(), null, "matriculaMB");
-        return (MatriculaMB) resolver.getValue(context.getELContext(), null, "matriculaMB");
+        return (LoginMB) resolver.getValue(context.getELContext(), null, "loginMB");
     }
 }

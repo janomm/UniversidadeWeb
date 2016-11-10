@@ -9,15 +9,15 @@ package view;
  *
  * @author mi
  */
-public class TurmaView {
+public class TurmaAlunoView {
 
     private Integer id;
-    private String nomeCurso;
-    private String nomeCadeira;
-    private Integer vagas;
+    private String curso;
+    private String cadeira;
     private String professor;
+    private Double nota;
     
-    public TurmaView() {
+    public TurmaAlunoView() {
     }
 
     public Integer getId() {
@@ -28,28 +28,20 @@ public class TurmaView {
         this.id = id;
     }
 
-    public String getNomeCurso() {
-        return nomeCurso;
+    public String getCurso() {
+        return curso;
     }
 
-    public void setNomeCurso(String nomeCurso) {
-        this.nomeCurso = nomeCurso;
+    public void setCurso(String curso) {
+        this.curso = curso;
     }
 
-    public String getNomeCadeira() {
-        return nomeCadeira;
+    public String getCadeira() {
+        return cadeira;
     }
 
-    public void setNomeCadeira(String nomeCadeira) {
-        this.nomeCadeira = nomeCadeira;
-    }
-
-    public Integer getVagas() {
-        return vagas;
-    }
-
-    public void setVagas(Integer vagas) {
-        this.vagas = vagas;
+    public void setCadeira(String cadeira) {
+        this.cadeira = cadeira;
     }
 
     public String getProfessor() {
@@ -59,4 +51,14 @@ public class TurmaView {
     public void setProfessor(String professor) {
         this.professor = professor;
     }
+
+    public Double getNota() {
+        return nota;
+    }
+
+    public void setNota(Double nota) {
+        this.nota = nota;
+    }
+    
+    
 }

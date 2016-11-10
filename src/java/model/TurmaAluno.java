@@ -26,7 +26,7 @@ public class TurmaAluno implements Serializable {
     private Integer codCurso;
     private Integer codTurma;
     private Integer codAluno;
-    private Float nota;
+    private Double nota;
     
     public Integer getId() {
         return id;
@@ -60,11 +60,11 @@ public class TurmaAluno implements Serializable {
         this.codAluno = codAluno;
     }
 
-    public Float getNota() {
+    public Double getNota() {
         return nota;
     }
 
-    public void setNota(Float nota) {
+    public void setNota(Double nota) {
         this.nota = nota;
     }
     

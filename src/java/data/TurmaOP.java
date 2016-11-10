@@ -148,33 +148,36 @@ public class TurmaOP {
         CadeiraOP cadeiraOP = new CadeiraOP();
         CursoOP cursoOP = new CursoOP();
         List<TurmaView> listaTurmaView = new ArrayList<TurmaView>();
+        UsuarioOP usuarioOP = new UsuarioOP();
         for (Turma t : listaTurmas) {
             TurmaView tv = new TurmaView();
             tv.setId(t.getId());
             tv.setNomeCadeira(cadeiraOP.retornaCadeiraPorId(t.getCodCadeira()).getNome());
             tv.setNomeCurso(cursoOP.retornaCursoPorId(cadeiraOP.retornaCadeiraPorId(t.getCodCadeira()).getCodCurso()).getNome());
             tv.setVagas(t.getNumVagasDisp());
-
+            tv.setProfessor(usuarioOP.retornaUsuarioPorId(t.getCodProfessor()).getNome());
+            
             listaTurmaView.add(tv);
         }
         return listaTurmaView;
     }
 
-    public List<TurmaView> retornaListaTurmaViewPorCurso(Integer id) {
+    public List<TurmaView> retornaListaTurmaViewPorCurso(Integer idCurso) {
         List<Turma> listaTurmas = retornaListaTurma();
         CadeiraOP cadeiraOP = new CadeiraOP();
         CursoOP cursoOP = new CursoOP();
         List<TurmaView> listaTurmaView = new ArrayList<TurmaView>();
+        UsuarioOP usuarioOP = new UsuarioOP();
         for (Turma t : listaTurmas) {
             TurmaView tv = new TurmaView();
             Cadeira cadeira = cadeiraOP.retornaCadeiraPorId(t.getCodCadeira());
             Curso curso = cursoOP.retornaCursoPorId(cadeira.getCodCurso());
-            if (curso.getId().equals(id)) {
+            if (curso.getId().equals(idCurso)) {
                 tv.setId(t.getId());
                 tv.setNomeCadeira(cadeiraOP.retornaCadeiraPorId(t.getCodCadeira()).getNome());
                 tv.setNomeCurso(cursoOP.retornaCursoPorId(cadeiraOP.retornaCadeiraPorId(t.getCodCadeira()).getCodCurso()).getNome());
                 tv.setVagas(t.getNumVagasDisp());
-
+                tv.setProfessor(usuarioOP.retornaUsuarioPorId(t.getCodProfessor()).getNome());
                 listaTurmaView.add(tv);
             }
         }
