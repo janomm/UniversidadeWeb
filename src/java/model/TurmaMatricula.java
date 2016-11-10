@@ -24,6 +24,7 @@ public class TurmaMatricula implements Serializable {
     private Integer id;
     
     private Integer codTurma;
+    //private Integer codCurso;
     private Integer codMatricula;
     private Integer nota;
     private Integer codProfessor;
@@ -51,6 +52,14 @@ public class TurmaMatricula implements Serializable {
     public void setCodMatricula(Integer codMatricula) {
         this.codMatricula = codMatricula;
     }
+
+    /*public Integer getCodCurso() {
+        return codCurso;
+    }
+
+    public void setCodCurso(Integer codCurso) {
+        this.codCurso = codCurso;
+    }*/
 
     public Integer getNota() {
         return nota;

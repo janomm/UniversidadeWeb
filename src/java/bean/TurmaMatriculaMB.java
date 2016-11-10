@@ -34,11 +34,12 @@ public class TurmaMatriculaMB implements Serializable {
     private List<TurmaMatricula> listaTurmaMatricula;
     private List<TurmaMatriculaView> listaTurmaMatriculaView;
     private List<TurmaView> listaTurmaView;
-    private List<TurmaConsulta> listaTurmaConsulta;
     private TurmaOP turmaOP;
     private String mensagemErro;
-    private TurmaMatriculaOP turmaMatriculaOP;
     private MatriculaMB matriculaMB;
+    
+    private List<TurmaConsulta> listaTurmaConsulta;
+    private TurmaMatriculaOP turmaMatriculaOP;
     
     
     public TurmaMatriculaMB() {
@@ -49,6 +50,7 @@ public class TurmaMatriculaMB implements Serializable {
         listaTurmaMatriculaView = retornaListaTurmaMatriculaView();
         listaTurmaView = retornaListaTurmaView();
         listaTurmaConsulta = retornaListaTurmaConsulta();
+        
     }
 
     public TurmaMatricula getTurmaMatricula() {
@@ -127,8 +129,8 @@ public class TurmaMatriculaMB implements Serializable {
     public MatriculaMB retornaMatriculaMB(){
         FacesContext context = FacesContext.getCurrentInstance();
         ELResolver resolver = context.getApplication().getELResolver();   
-        MatriculaMB matriculaMB = (MatriculaMB) resolver.getValue(context.getELContext(), null, "matriculaMB");
-        return matriculaMB;
+        //MatriculaMB matriculaMB = (MatriculaMB) resolver.getValue(context.getELContext(), null, "matriculaMB");
+        return (MatriculaMB) resolver.getValue(context.getELContext(), null, "matriculaMB");
     }
     
     public List<TurmaMatricula> retornaListaTurmaMatricula(){
@@ -177,7 +179,6 @@ public class TurmaMatriculaMB implements Serializable {
     }
     
     public List<TurmaConsulta> retornaListaTurmaConsulta(){
-        
         return turmaMatriculaOP.retornaListaTurmaConsulta(matriculaMB.retornaCodigoUsuario());
     }
 }
