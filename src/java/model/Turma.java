@@ -25,6 +25,7 @@ public class Turma implements Serializable {
     private Integer codCadeira;
     private Integer numVagas;
     private Integer numVagasDisp;
+    private Integer codProfessor;
 
     public Integer getId() {
         return id;
@@ -56,6 +57,14 @@ public class Turma implements Serializable {
 
     public void setNumVagasDisp(Integer numVagasDisp) {
         this.numVagasDisp = numVagasDisp;
+    }
+
+    public Integer getCodProfessor() {
+        return codProfessor;
+    }
+
+    public void setCodProfessor(Integer codProfessor) {
+        this.codProfessor = codProfessor;
     }
     
     @Override

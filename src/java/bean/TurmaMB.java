@@ -135,6 +135,7 @@ public class TurmaMB implements Serializable {
     
     public String adicionarTurma() {
         String retorno = "";
+        turma.setCodProfessor(0);
         retorno = turmaOP.adicionarTurma(turma);
         if(retorno.length() != 0){
             mensagemErro = retorno;

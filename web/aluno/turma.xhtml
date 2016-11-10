@@ -44,8 +44,8 @@
                         <p><b>Turma</b></p>
                     </div>
                     <div class="col-sm-8 text-left">
-                        <h:dataTable var="turmaConsulta" value="#{turmaMatriculaMB.listaTurmaConsulta}" styleClass="table table-bordered">
-                            <!--<f:facet name="header">
+                        <h:dataTable var="turmaConsulta" value="#{turmaAlunoMB.listaTurmaConsulta}" styleClass="table table-bordered">
+                            <f:facet name="header">
                                 <h:outputText value="Turmas"/>
                             </f:facet>
                             <h:column>
@@ -65,7 +65,7 @@
                                     <h:outputText value="Nota"/>
                                 </f:facet>
                                 <h:outputLabel value="#{turmaConsulta.nota}"/>
-                            </h:column>-->
+                            </h:column>
                         </h:dataTable>
                     </div>
                     <div class="col-sm-2 sidenav">
