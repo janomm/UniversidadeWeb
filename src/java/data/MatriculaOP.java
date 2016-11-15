@@ -136,4 +136,19 @@ public class MatriculaOP {
         }
         return listaMatriculaView;
     }
+    
+    public List<Matricula> retornaListaMatriculaPorCurso(Integer id){
+        EntityManagerFactory factory
+                = Persistence.createEntityManagerFactory(
+                        "UniversidadeWebPU");
+        EntityManager manager = factory.createEntityManager();
+
+        Query query = manager.createQuery(
+                "SELECT m FROM Matricula m WHERE m.codCurso = " + id.toString());
+        List<Matricula> listaMatricula = query.getResultList();
+
+        factory.close();
+
+        return listaMatricula;
+    }
 }

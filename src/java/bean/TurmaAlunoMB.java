@@ -7,7 +7,6 @@ package bean;
 
 import data.CursoOP;
 import data.TurmaAlunoOP;
-import data.TurmaMatriculaOP;
 import data.TurmaOP;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;

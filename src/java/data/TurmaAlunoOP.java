@@ -14,7 +14,6 @@ import javax.persistence.Query;
 import model.Cadeira;
 import model.Turma;
 import model.TurmaAluno;
-import model.TurmaMatricula;
 import view.TurmaAlunoView;
 
 /**
@@ -133,5 +132,20 @@ public class TurmaAlunoOP {
             listaTurmaAlunoView.add(tav);
         }
         return listaTurmaAlunoView;
+    }
+    
+    public List<TurmaAluno> retornaListaTurmaAlunoPorTurma(Integer id) {
+        EntityManagerFactory factory
+                = Persistence.createEntityManagerFactory(
+                        "UniversidadeWebPU");
+        EntityManager manager = factory.createEntityManager();
+
+        Query query = manager.createQuery(
+                "SELECT t FROM TurmaAluno t WHERE t.codTurma = " + id.toString());
+        List<TurmaAluno> listaTurmaAluno = query.getResultList();
+
+        factory.close();
+
+        return listaTurmaAluno;
     }
 }

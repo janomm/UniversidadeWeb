@@ -40,14 +40,17 @@ public class TurmaOP {
         return listaTurma;
     }
 
-    public String excluirTurma(Turma c) {
+    public String excluirTurma(Turma t) {
+        String erro = validaExclusao(t);
+        if(erro != "")
+            return erro;
         try {
             EntityManagerFactory factory = Persistence.createEntityManagerFactory("UniversidadeWebPU");
 
             EntityManager manager = factory.createEntityManager();
 
             manager.getTransaction().begin();
-            manager.remove(manager.merge(c));
+            manager.remove(manager.merge(t));
             manager.getTransaction().commit();
 
             factory.close();
@@ -210,5 +213,12 @@ public class TurmaOP {
             }
         }
         return listaTurmaViewsProfessor;
+    }
+    
+    public String validaExclusao(Turma turma){
+        TurmaAlunoOP turmaAlunoOP = new TurmaAlunoOP();
+        if(!turmaAlunoOP.retornaListaTurmaAlunoPorTurma(turma.getId()).isEmpty())
+            return "Turma " + turma.getId() + " tem pelo menos uma matrícula vinculada.";
+        return "";
     }
 }

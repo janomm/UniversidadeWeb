@@ -37,6 +37,9 @@ public class UsuarioOP {
     }
 
     public String excluirUsuario(Usuario u) {
+        String erro = validaExclusao(u);
+        if(!erro.isEmpty())
+            return erro;
         try {
             EntityManagerFactory factory = Persistence.createEntityManagerFactory("UniversidadeWebPU");
 
@@ -103,5 +106,17 @@ public class UsuarioOP {
         
         factory.close();
         return uRetorno;
+    }
+
+    public String validaExclusao(Usuario usuario){
+        MatriculaOP matriculaOP = new MatriculaOP();
+        TurmaOP turmaOP = new TurmaOP();
+        if(!matriculaOP.retornaListaMatriculaPorUsuario(usuario.getId()).isEmpty()){
+            return "Usuario " + usuario.getNome() + " possui matricula.";
+        }
+        if(!turmaOP.retornaTurmaPorProfessor(usuario.getId()).isEmpty()){
+            return "Usuário " + usuario.getNome() + " é professor em pelo menos uma turma.";
+        }
+       return "";
     }
 }

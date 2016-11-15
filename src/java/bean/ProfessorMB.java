@@ -6,7 +6,6 @@
 package bean;
 
 import data.TurmaAlunoOP;
-import data.TurmaMatriculaOP;
 import data.TurmaOP;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -110,6 +109,13 @@ public class ProfessorMB implements Serializable {
     public void ingressarComoProfessor(TurmaView t){
         turma = turmaOP.retornaTurmaPorId(t.getId());
         turma.setCodProfessor(codUsuario);
+        turmaOP.alterarTurma(turma);
+        listaTurmaView = turmaOP.retornaListaTurmaView();
+    }
+    
+    public void deixarTurma(TurmaView t){
+        turma = turmaOP.retornaTurmaPorId(t.getId());
+        turma.setCodProfessor(0);
         turmaOP.alterarTurma(turma);
         listaTurmaView = turmaOP.retornaListaTurmaView();
     }

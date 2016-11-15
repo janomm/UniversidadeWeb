@@ -7,7 +7,6 @@ package bean;
 
 import data.CursoOP;
 import data.MatriculaOP;
-import data.TurmaMatriculaOP;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -17,7 +16,6 @@ import javax.el.ELResolver;
 import javax.faces.context.FacesContext;
 import model.Curso;
 import model.Matricula;
-import model.TurmaMatricula;
 import view.MatriculaView;
 
 /**
@@ -119,7 +117,6 @@ public class MatriculaMB implements Serializable {
     
     public String turmaMatricula(MatriculaView m){
         matricula = matriculaOP.retornaMatriculaPorId(m.getId());
-        //return "turmaMatricula";
         return "turmaAluno";
     }
     

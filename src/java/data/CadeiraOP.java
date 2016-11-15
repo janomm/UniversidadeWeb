@@ -54,6 +54,9 @@ public class CadeiraOP {
     }
     
     public String excluirCadeira(Cadeira c) {
+        String erro = validaExclusao(c);
+        if(erro != "")
+            return erro;
         try {
             EntityManagerFactory factory = Persistence.createEntityManagerFactory("UniversidadeWebPU");
 
@@ -136,5 +139,12 @@ public class CadeiraOP {
             listaCadeiraView.add(cv);
         }
         return listaCadeiraView;
+    }
+    
+    public String validaExclusao(Cadeira cadeira){
+        TurmaOP turmaOP = new TurmaOP();
+        if(!turmaOP.retornaTurmaPorCadeira(cadeira.getId()).isEmpty())
+            return "Cadeira " + cadeira.getNome() + " está vinculada a pelo menos uma turma.";
+        return "";
     }
 }

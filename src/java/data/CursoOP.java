@@ -37,6 +37,9 @@ public class CursoOP {
     }
     
     public String excluirCurso(Curso c) {
+        String erro = validaExclusao(c);
+        if(erro != "")
+            return erro;
         try {
             EntityManagerFactory factory = Persistence.createEntityManagerFactory("UniversidadeWebPU");
 
@@ -104,6 +107,13 @@ public class CursoOP {
         
         factory.close();
         return cRetorno;
+    }
+    
+    public String validaExclusao(Curso curso){
+        MatriculaOP matriculaOP = new MatriculaOP();
         
+        if(!matriculaOP.retornaListaMatriculaPorCurso(curso.getId()).isEmpty())
+            return "Curso " + curso.getNome() + " possui pelo menos uma turma vinculada.";
+        return "";
     }
 }

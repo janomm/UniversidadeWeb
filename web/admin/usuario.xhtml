@@ -101,8 +101,8 @@
                                 <h:commandButton value="Excluir" styleClass="btn btn-primary" action="#{usuarioMB.excluirUsuario(usuario)}" />
                             </h:column>
                         </h:dataTable> 
-                        <h:commandButton value="Novo Usuario" styleClass="btn btn-primary" action="#{usuarioMB.criarUsuario()}"/>
-                        <h:outputLabel value="#{loginMB.mensagemErro}" style="color: red" />
+                        <h:commandButton value="Novo Usuario" styleClass="btn btn-primary" action="#{usuarioMB.criarUsuario()}"/><br/>
+                        <h:outputLabel value="#{usuarioMB.mensagemErro}" style="color: red" />
                     </div>
                     <div class="col-sm-2 sidenav">
                         <div class="well">
