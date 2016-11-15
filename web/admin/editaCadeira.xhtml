@@ -39,6 +39,7 @@
                 <div class="row content">
                     <div class="col-sm-2 sidenav">
                         <p><h1>Cadastros</h1></p>
+                        <p><h:commandLink value="Início" action="#{loginMB.linkInicioAdmin()}" /> </p>
                         <p><h:commandLink value="Usuário" action="#{loginMB.linkCadastroUsuario()}" /> </p>
                         <p><h:commandLink value="Curso" action="#{loginMB.linkCadastroCurso()}" /> </p>
                         <p><h:commandLink value="Tipo Curso" action="#{loginMB.linkCadastroTipoCurso()}" /> </p>
@@ -54,8 +55,7 @@
                             <h:selectOneMenu id="idCodCurso" value="#{cadeiraMB.cadeira.codCurso}" class="btn btn-primary dropdown-toggle">
                                 <f:selectItems class="dropdown-menu" value="#{cadeiraMB.listaCursos}" var="curso"
                                                itemValue="#{curso.id}" itemLabel="#{curso.nome}"/>
-                            </h:selectOneMenu></h:selectOneMenu>
-
+                            </h:selectOneMenu>
                             <h:outputLabel for="idCargaHoraria" value="Carga Horaria: "/>
                             <h:inputText id="idCargaHoraria" value="#{cadeiraMB.cadeira.cargaHoraria}" />
 

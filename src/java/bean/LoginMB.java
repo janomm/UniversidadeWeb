@@ -158,6 +158,18 @@ public class LoginMB implements Serializable {
             return "#";
     }
     
+    public String linkInicioAdmin(){
+        return "administrador";
+    }
+    
+    public String linkInicioAluno(){
+        return "aluno";
+    }
+    
+    public String linkInicioProfessor(){
+        return "professor";
+    }
+            
     public String linkCadastroUsuario(){
         return "usuario";
     }
