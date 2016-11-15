@@ -18,6 +18,7 @@ public class TurmaAlunoView {
     private Double nota;
     private String aluno;
     private Integer turma;
+    private Integer codAluno;
     
     public TurmaAlunoView() {
     }
@@ -76,5 +77,13 @@ public class TurmaAlunoView {
 
     public void setTurma(Integer turma) {
         this.turma = turma;
+    }
+
+    public Integer getCodAluno() {
+        return codAluno;
+    }
+
+    public void setCodAluno(Integer codAluno) {
+        this.codAluno = codAluno;
     }
 }

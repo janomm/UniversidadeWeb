@@ -11,7 +11,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import model.Cadeira;
 import model.Turma;
 import model.TurmaAluno;
 import view.TurmaAlunoView;
@@ -120,7 +119,8 @@ public class TurmaAlunoOP {
         
         for(TurmaAluno ta : listaTurmaAluno){
             TurmaAlunoView tav = new TurmaAlunoView();
-            Turma t = turamOP.retornaTurmaPorId(ta.getCodTurma());
+            Turma t = new Turma();
+            t = turamOP.retornaTurmaPorId(ta.getCodTurma());
             
             tav.setId(ta.getId());
             tav.setCurso(cursoOP.retornaCursoPorId(ta.getCodCurso()).getNome());
@@ -129,6 +129,7 @@ public class TurmaAlunoOP {
             tav.setProfessor(usuarioOP.retornaUsuarioPorId(t.getCodProfessor()).getNome());
             tav.setAluno(usuarioOP.retornaUsuarioPorId(ta.getCodAluno()).getNome());
             tav.setTurma(ta.getCodTurma());
+            tav.setCodAluno(usuarioOP.retornaUsuarioPorId(ta.getCodAluno()).getId());
             listaTurmaAlunoView.add(tav);
         }
         return listaTurmaAlunoView;
@@ -147,5 +148,15 @@ public class TurmaAlunoOP {
         factory.close();
 
         return listaTurmaAluno;
+    }
+    
+    public List<TurmaAlunoView> retornaTurmaAlunoViewPorAluno(Integer id){
+        List<TurmaAlunoView> listaTurmaAlunoView = retornaTurmaAlunoView();
+        List<TurmaAlunoView> retorno = new ArrayList<TurmaAlunoView>();
+        for(TurmaAlunoView t : listaTurmaAlunoView){
+            if(t.getCodAluno().equals(id))
+                retorno.add(t);
+        }
+        return retorno;
     }
 }

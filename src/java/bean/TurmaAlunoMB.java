@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.el.ELResolver;
 import javax.faces.context.FacesContext;
+import model.Turma;
 import model.TurmaAluno;
 import view.TurmaAlunoView;
 import view.TurmaConsulta;
@@ -38,16 +39,15 @@ public class TurmaAlunoMB implements Serializable {
     private TurmaAlunoOP turmaAlunoOP;
     private String mensagemErro;
     private List<TurmaAlunoView> listaTurmaAlunoView;
-    
+
     public TurmaAlunoMB() {
+        codAluno = retornaLoginMB().getUsuario().getId();
         turmaAluno = new TurmaAluno();
         turmaAlunoOP = new TurmaAlunoOP();
         matriculaMB = retornaMatriculaMB();
         turmaOP = new TurmaOP();
         listaTurmaView = retornaListaTurmaView();
-        codAluno = retornaLoginMB().getUsuario().getId();
-        listaTurmaAlunoView = turmaAlunoOP.retornaTurmaAlunoView();
-        
+        listaTurmaAlunoView = retornaTurmaAlunoView();
     }
 
     public List<TurmaView> getListaTurmaView() {
@@ -113,45 +113,64 @@ public class TurmaAlunoMB implements Serializable {
     public void setListaTurmaAlunoView(List<TurmaAlunoView> listaTurmaAlunoView) {
         this.listaTurmaAlunoView = listaTurmaAlunoView;
     }
-    
-    public String adicionarTurmaAluno(TurmaView t){
+
+    public String adicionarTurmaAluno(TurmaView t) {
         String retorno = "";
+
+        TurmaOP turmaOP = new TurmaOP();
+        Turma turma = turmaOP.retornaTurmaPorId(t.getId());
+        if (turma.getNumVagasDisp() > 1) {
+            turma.setNumVagasDisp(turma.getNumVagasDisp() - 1);
+            turmaAluno.setCodCurso(matriculaMB.getMatricula().getCodCurso());
+            turmaAluno.setCodTurma(t.getId());
+            turmaAluno.setCodAluno(codAluno);
+            turmaAluno.setNota(0.0);
+            retorno = turmaAlunoOP.adicionarTurmaAluno(turmaAluno);
+            listaTurmaAlunoView = retornaTurmaAlunoView();
+        } else {
+            mensagemErro = "Não há mais vagas nesta turma.";
+            return "turmaAluno";
+        }
         
-        turmaAluno.setCodCurso(matriculaMB.getMatricula().getCodCurso());
-        turmaAluno.setCodTurma(t.getId());
-        turmaAluno.setCodAluno(codAluno);
-        turmaAluno.setNota(0.0);
-        retorno = turmaAlunoOP.adicionarTurmaAluno(turmaAluno);
-        if(retorno.length() != 0){
+        if (retorno.length() != 0) {
             mensagemErro = retorno;
             return "turmaAluno";
         } else {
+            turmaOP.alterarTurma(turma);
             listaTurmaAlunoView = turmaAlunoOP.retornaTurmaAlunoView();
             return "matricula";
         }
     }
-    
-    public void removerTurmaAluno(TurmaView t){
+
+    public void removerTurmaAluno(TurmaView t) {
         String retorno = "";
         retorno = turmaAlunoOP.excluirTurmaAluno(turmaAlunoOP.retornaTurmaAlunoPorId(t.getId()));
         listaTurmaAlunoView = turmaAlunoOP.retornaTurmaAlunoView();
-        if(retorno.length() != 0)
+        if (retorno.length() != 0) {
             mensagemErro = retorno;
+        }
     }
 
-    public List<TurmaView> retornaListaTurmaView(){
-        return turmaOP.retornaListaTurmaViewPorCurso(matriculaMB.getMatricula().getCodCurso());
+    public List<TurmaView> retornaListaTurmaView() {
+        matriculaMB = retornaMatriculaMB();
+        Integer codCurso = matriculaMB.getMatricula().getCodCurso();
+        return turmaOP.retornaListaTurmaViewPorCurso(codCurso);
+    }
+
+    public MatriculaMB retornaMatriculaMB() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ELResolver resolver = context.getApplication().getELResolver();
+        return (MatriculaMB) resolver.getValue(context.getELContext(), null, "matriculaMB");
+    }
+
+    public LoginMB retornaLoginMB() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ELResolver resolver = context.getApplication().getELResolver();
+        return (LoginMB) resolver.getValue(context.getELContext(), null, "loginMB");
     }
     
-    public MatriculaMB retornaMatriculaMB(){
-        FacesContext context = FacesContext.getCurrentInstance();
-        ELResolver resolver = context.getApplication().getELResolver();   
-           return (MatriculaMB) resolver.getValue(context.getELContext(), null, "matriculaMB");
+    public List<TurmaAlunoView> retornaTurmaAlunoView(){
+        return turmaAlunoOP.retornaTurmaAlunoViewPorAluno(codAluno);
     }
-    
-    public LoginMB retornaLoginMB(){
-        FacesContext context = FacesContext.getCurrentInstance();
-        ELResolver resolver = context.getApplication().getELResolver();   
-           return (LoginMB) resolver.getValue(context.getELContext(), null, "loginMB");
-    }
+            
 }
