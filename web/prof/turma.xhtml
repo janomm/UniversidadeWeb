@@ -44,10 +44,16 @@
                     <p><b>Turmas</b></p>
                 </div>
                 <div class="col-sm-8 text-left">
-                        <h:dataTable var="turma" value="#{professorMB.listaTurmaView}" styleClass="table table-bordered">
+                    <h:dataTable var="turma" value="#{professorMB.listaMinhasTurmas}" styleClass="table table-bordered">
                             <f:facet name="header">
                                 <h:outputText value="Tabela de Turmas"/>
                             </f:facet>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Turma"/>
+                                </f:facet>
+                                <h:outputText value="#{turma.id}"/>
+                            </h:column>
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="Curso"/>
@@ -62,15 +68,9 @@
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Professor"/>
-                                </f:facet>
-                                <h:outputText value="#{turma.professor}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
                                     <h:outputText value="Opções"/>
                                 </f:facet>
-                                <h:commandButton value="Ingressar" styleClass="btn btn-primary" action="#{professorMB.ingressarComoProfessor(turma)}" />
+                                <h:commandButton value="Entrar" styleClass="btn btn-primary" action="#{professorMB.entrarTurma(turma)}" />
                             </h:column>
                         </h:dataTable> 
                     </div>

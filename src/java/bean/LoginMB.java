@@ -107,6 +107,15 @@ public class LoginMB implements Serializable {
     public String realizaLogout() {
         usuario = null;
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("cadeiraMB");
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("cursoMB");
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("matriculaMB");
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("professorMB");
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("tipoCursoMB");
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("turmaAlunoMB");
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("turmaMB");
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("turmaMatriculaMB");
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("usuarioMB");
         return ("/index?faces-redirect=true");
     }
 

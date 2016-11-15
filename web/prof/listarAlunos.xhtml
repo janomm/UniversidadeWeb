@@ -25,10 +25,8 @@
                     </div>
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav">
-                            <ul class="nav navbar-nav">
-                                <li><h:commandLink value="#{loginMB.linkAdministrador()}" action="#{loginMB.direcionaAdministrador()}" /></li>
-                                <li><h:commandLink value="#{loginMB.linkAluno()}" action="#{loginMB.direcionaAluno()}" /></li>
-                            </ul>
+                            <li><h:commandLink value="#{loginMB.linkAdministrador()}" action="#{loginMB.direcionaAdministrador()}" /></li>
+                            <li><h:commandLink value="#{loginMB.linkAluno()}" action="#{loginMB.direcionaAluno()}" /></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li><h:commandLink action="#{loginMB.realizaLogout()}" ><span class="glyphicon glyphicon-log-in"></span> Logof</h:commandLink></li>
@@ -42,39 +40,29 @@
                 <div class="row content">
                     <div class="col-sm-2 sidenav">
                         <p><h1>Professor</h1></p>
-                        <p><b>Ingressar Turma</b></p>
-                        <p><h:commandLink value="Turmas" action="#{loginMB.linkProfessorTurma()}" /> </p>
+                        <p><h:commandLink value="Ingressar Turma" action="#{loginMB.linkProfessorIngressarTurma()}" /> </p>
+                        <p><b>Turmas</b></p>
                     </div>
                     <div class="col-sm-8 text-left">
-                        <h:dataTable var="turma" value="#{professorMB.retornaTurmaViewProfessor()}" styleClass="table table-bordered">
+                        <h:dataTable var="turmaAluno" value="#{professorMB.listaTurmaAluno}" styleClass="table table-bordered">
                             <f:facet name="header">
                                 <h:outputText value="Tabela de Turmas"/>
                             </f:facet>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Curso"/>
+                                    <h:outputText value="Aluno"/>
                                 </f:facet>
-                                <h:outputText value="#{turma.nomeCurso}"/>
+                                <h:outputText value="#{turmaAluno.aluno}"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Cadeira"/>
+                                    <h:outputText value="Nota"/>
                                 </f:facet>
-                                <h:outputText value="#{turma.nomeCadeira}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Professor"/>
-                                </f:facet>
-                                <h:outputText value="#{turma.professor}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Opções"/>
-                                </f:facet>
-                                <h:commandButton value="Ingressar" styleClass="btn btn-primary" action="#{professorMB.ingressarComoProfessor(turma)}" />
+                                <h:inputText id="nota" value="#{turmaAluno.nota}"/>
                             </h:column>
                         </h:dataTable> 
+                        <h:commandButton value="Salvar Notas" styleClass="btn btn-primary" action="#{professorMB.salvarNotas()}" />
+                        <h:button value="Voltar" styleClass="btn btn-primary" outcome="turma"/>
                     </div>
                     <div class="col-sm-2 sidenav">
                         <div class="well">

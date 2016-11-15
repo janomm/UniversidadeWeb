@@ -16,6 +16,8 @@ public class TurmaAlunoView {
     private String cadeira;
     private String professor;
     private Double nota;
+    private String aluno;
+    private Integer turma;
     
     public TurmaAlunoView() {
     }
@@ -59,6 +61,20 @@ public class TurmaAlunoView {
     public void setNota(Double nota) {
         this.nota = nota;
     }
-    
-    
+
+    public String getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(String aluno) {
+        this.aluno = aluno;
+    }
+
+    public Integer getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Integer turma) {
+        this.turma = turma;
+    }
 }

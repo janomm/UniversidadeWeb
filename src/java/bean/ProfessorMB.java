@@ -5,15 +5,18 @@
  */
 package bean;
 
+import data.TurmaAlunoOP;
 import data.TurmaMatriculaOP;
 import data.TurmaOP;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.el.ELResolver;
 import javax.faces.context.FacesContext;
 import model.Turma;
+import model.TurmaAluno;
 import view.TurmaAlunoView;
 import view.TurmaConsulta;
 import view.TurmaView;
@@ -30,16 +33,22 @@ public class ProfessorMB implements Serializable {
      * Creates a new instance of ProfessorMB
      */
     private List<TurmaView> listaTurmaView;
+    private List<TurmaView> listaMinhasTurmas;
+    private List<TurmaAlunoView> listaTurmaAluno;
     private TurmaOP turmaOP;
+    private TurmaAlunoOP turmaAlunoOP;
     private Turma turma;
     private Integer codUsuario;
     
     
     public ProfessorMB() {
+        codUsuario = retornaLoginMB().getUsuario().getId();
         turma = new Turma();
         turmaOP = new TurmaOP();
+        turmaAlunoOP = new TurmaAlunoOP();
         listaTurmaView = turmaOP.retornaListaTurmaView();
-        codUsuario = retornaLoginMB().getUsuario().getId();
+        listaMinhasTurmas = retornaTurmaViewProfessor();
+        listaTurmaAluno = new ArrayList<TurmaAlunoView>();
     }
 
     public List<TurmaView> getListaTurmaView() {
@@ -73,6 +82,30 @@ public class ProfessorMB implements Serializable {
     public void setCodUsuario(Integer codUsuario) {
         this.codUsuario = codUsuario;
     }
+
+    public List<TurmaView> getListaMinhasTurmas() {
+        return listaMinhasTurmas;
+    }
+
+    public void setListaMinhasTurmas(List<TurmaView> listaMinhasTurmas) {
+        this.listaMinhasTurmas = listaMinhasTurmas;
+    }
+
+    public List<TurmaAlunoView> getListaTurmaAluno() {
+        return listaTurmaAluno;
+    }
+
+    public void setListaTurmaAluno(List<TurmaAlunoView> listaTurmaAluno) {
+        this.listaTurmaAluno = listaTurmaAluno;
+    }
+
+    public TurmaAlunoOP getTurmaAlunoOP() {
+        return turmaAlunoOP;
+    }
+
+    public void setTurmaAlunoOP(TurmaAlunoOP turmaAlunoOP) {
+        this.turmaAlunoOP = turmaAlunoOP;
+    }
     
     public void ingressarComoProfessor(TurmaView t){
         turma = turmaOP.retornaTurmaPorId(t.getId());
@@ -80,11 +113,40 @@ public class ProfessorMB implements Serializable {
         turmaOP.alterarTurma(turma);
         listaTurmaView = turmaOP.retornaListaTurmaView();
     }
+    
+    public String entrarTurma(TurmaView t){
+        //turma = turmaOP.retornaTurmaPorId(t.getId());
+        listaTurmaAluno = retoraTurmaAlunoPorTurma(t.getId());
+        return "listarAlunos";
+    }
 
     public LoginMB retornaLoginMB(){
         FacesContext context = FacesContext.getCurrentInstance();
         ELResolver resolver = context.getApplication().getELResolver();   
         //MatriculaMB matriculaMB = (MatriculaMB) resolver.getValue(context.getELContext(), null, "matriculaMB");
         return (LoginMB) resolver.getValue(context.getELContext(), null, "loginMB");
+    }
+    
+    public List<TurmaView> retornaTurmaViewProfessor(){
+        return turmaOP.retornaListaTurmaViewPorProfessor(codUsuario);
+    }
+    
+    public List<TurmaAlunoView> retoraTurmaAlunoPorTurma(Integer idTurma){
+        List<TurmaAlunoView> listaTurmaAlunoTurma = new ArrayList<TurmaAlunoView>();
+        for(TurmaAlunoView t : turmaAlunoOP.retornaTurmaAlunoView()){
+            if(t.getTurma().equals(idTurma)){
+                listaTurmaAlunoTurma.add(t);
+            }
+        }
+        return listaTurmaAlunoTurma;
+    }
+    
+    public void salvarNotas(){
+        TurmaAluno turmaAluno;
+        for(TurmaAlunoView t : listaTurmaAluno){
+           turmaAluno = turmaAlunoOP.retornaTurmaAlunoPorId(t.getId());
+           turmaAluno.setNota(t.getNota());
+           turmaAlunoOP.alterarTurmaAluno(turmaAluno);
+        }
     }
 }

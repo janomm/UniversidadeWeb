@@ -128,6 +128,8 @@ public class TurmaAlunoOP {
             tav.setCadeira(cadeiraOP.retornaCadeiraPorId(t.getCodCadeira()).getNome());
             tav.setNota(ta.getNota());
             tav.setProfessor(usuarioOP.retornaUsuarioPorId(t.getCodProfessor()).getNome());
+            tav.setAluno(usuarioOP.retornaUsuarioPorId(ta.getCodAluno()).getNome());
+            tav.setTurma(ta.getCodTurma());
             listaTurmaAlunoView.add(tav);
         }
         return listaTurmaAlunoView;

@@ -124,6 +124,20 @@ public class TurmaOP {
         factory.close();
         return listaTurma;
     }
+    
+    public List<Turma> retornaTurmaPorProfessor(Integer id) {
+        EntityManagerFactory factory
+                = Persistence.createEntityManagerFactory(
+                        "UniversidadeWebPU");
+        EntityManager manager = factory.createEntityManager();
+
+        Query query = manager.createQuery("SELECT t FROM Turma t WHERE t.codProfessor = " + id.toString());
+
+        List<Turma> listaTurma = query.getResultList();
+
+        factory.close();
+        return listaTurma;
+    }
 
     public List<Turma> retornaTurmaPorCurso(Integer id) {
         CursoOP cursoOP = new CursoOP();
@@ -182,5 +196,19 @@ public class TurmaOP {
             }
         }
         return listaTurmaView;
+    }
+    
+    public List<TurmaView> retornaListaTurmaViewPorProfessor(Integer idProfessor) {
+        UsuarioOP usuarioOP = new UsuarioOP();
+        String nomeProfessor = usuarioOP.retornaUsuarioPorId(idProfessor).getNome();
+        List<TurmaView> listaTurmaViews = retornaListaTurmaView();
+        List<TurmaView> listaTurmaViewsProfessor = new ArrayList<TurmaView>();
+        
+        for(TurmaView t : listaTurmaViews){
+            if(t.getProfessor().equalsIgnoreCase(nomeProfessor)){
+                listaTurmaViewsProfessor.add(t);
+            }
+        }
+        return listaTurmaViewsProfessor;
     }
 }
