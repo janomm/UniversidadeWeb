@@ -42,8 +42,9 @@ public class TurmaOP {
 
     public String excluirTurma(Turma t) {
         String erro = validaExclusao(t);
-        if(erro != "")
+        if (erro != "") {
             return erro;
+        }
         try {
             EntityManagerFactory factory = Persistence.createEntityManagerFactory("UniversidadeWebPU");
 
@@ -127,7 +128,7 @@ public class TurmaOP {
         factory.close();
         return listaTurma;
     }
-    
+
     public List<Turma> retornaTurmaPorProfessor(Integer id) {
         EntityManagerFactory factory
                 = Persistence.createEntityManagerFactory(
@@ -172,8 +173,13 @@ public class TurmaOP {
             tv.setNomeCadeira(cadeiraOP.retornaCadeiraPorId(t.getCodCadeira()).getNome());
             tv.setNomeCurso(cursoOP.retornaCursoPorId(cadeiraOP.retornaCadeiraPorId(t.getCodCadeira()).getCodCurso()).getNome());
             tv.setVagas(t.getNumVagasDisp());
-            tv.setProfessor(usuarioOP.retornaUsuarioPorId(t.getCodProfessor()).getNome());
             
+            String nomeProfessor = usuarioOP.retornaUsuarioPorId(t.getCodProfessor()).getNome();
+            if(nomeProfessor == null)
+                tv.setProfessor("");
+            else
+                tv.setProfessor(nomeProfessor);
+
             listaTurmaView.add(tv);
         }
         return listaTurmaView;
@@ -200,25 +206,26 @@ public class TurmaOP {
         }
         return listaTurmaView;
     }
-    
+
     public List<TurmaView> retornaListaTurmaViewPorProfessor(Integer idProfessor) {
         UsuarioOP usuarioOP = new UsuarioOP();
         String nomeProfessor = usuarioOP.retornaUsuarioPorId(idProfessor).getNome();
         List<TurmaView> listaTurmaViews = retornaListaTurmaView();
         List<TurmaView> listaTurmaViewsProfessor = new ArrayList<TurmaView>();
-        
-        for(TurmaView t : listaTurmaViews){
-            if(t.getProfessor().equalsIgnoreCase(nomeProfessor)){
+
+        for (TurmaView t : listaTurmaViews) {
+            if (t.getProfessor().equalsIgnoreCase(nomeProfessor)) {
                 listaTurmaViewsProfessor.add(t);
             }
         }
         return listaTurmaViewsProfessor;
     }
-    
-    public String validaExclusao(Turma turma){
+
+    public String validaExclusao(Turma turma) {
         TurmaAlunoOP turmaAlunoOP = new TurmaAlunoOP();
-        if(!turmaAlunoOP.retornaListaTurmaAlunoPorTurma(turma.getId()).isEmpty())
+        if (!turmaAlunoOP.retornaListaTurmaAlunoPorTurma(turma.getId()).isEmpty()) {
             return "Turma " + turma.getId() + " tem pelo menos uma matrícula vinculada.";
+        }
         return "";
     }
 }

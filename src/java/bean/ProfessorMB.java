@@ -38,8 +38,8 @@ public class ProfessorMB implements Serializable {
     private TurmaAlunoOP turmaAlunoOP;
     private Turma turma;
     private Integer codUsuario;
-    
-    
+    private String mensagemErro;
+
     public ProfessorMB() {
         codUsuario = retornaLoginMB().getUsuario().getId();
         turma = new Turma();
@@ -105,54 +105,74 @@ public class ProfessorMB implements Serializable {
     public void setTurmaAlunoOP(TurmaAlunoOP turmaAlunoOP) {
         this.turmaAlunoOP = turmaAlunoOP;
     }
-    
-    public void ingressarComoProfessor(TurmaView t){
-        turma = turmaOP.retornaTurmaPorId(t.getId());
-        turma.setCodProfessor(codUsuario);
-        turmaOP.alterarTurma(turma);
-        listaTurmaView = turmaOP.retornaListaTurmaView();
+
+    public String getMensagemErro() {
+        return mensagemErro;
     }
-    
-    public void deixarTurma(TurmaView t){
-        turma = turmaOP.retornaTurmaPorId(t.getId());
-        turma.setCodProfessor(0);
-        turmaOP.alterarTurma(turma);
-        listaTurmaView = turmaOP.retornaListaTurmaView();
+
+    public void setMensagemErro(String mensagemErro) {
+        this.mensagemErro = mensagemErro;
     }
-    
-    public String entrarTurma(TurmaView t){
+
+    public void ingressarComoProfessor(TurmaView t) {
+        turma = turmaOP.retornaTurmaPorId(t.getId());
+        if (turma.getCodProfessor() == 0) {
+            turma.setCodProfessor(codUsuario);
+            turmaOP.alterarTurma(turma);
+            listaTurmaView = turmaOP.retornaListaTurmaView();
+            listaMinhasTurmas = retornaTurmaViewProfessor();
+            mensagemErro = "";
+        } else {
+            mensagemErro = "Turma já tem professor.";
+        }
+    }
+
+    public void deixarTurma(TurmaView t) {
+        turma = turmaOP.retornaTurmaPorId(t.getId());
+        if (turma.getCodProfessor() == codUsuario) {
+            turma.setCodProfessor(0);
+            turmaOP.alterarTurma(turma);
+            listaTurmaView = turmaOP.retornaListaTurmaView();
+            listaMinhasTurmas = retornaTurmaViewProfessor();
+            mensagemErro = "";
+        } else {
+            mensagemErro = "Voce não é o professor desta turma.";
+        }
+    }
+
+    public String entrarTurma(TurmaView t) {
         //turma = turmaOP.retornaTurmaPorId(t.getId());
         listaTurmaAluno = retoraTurmaAlunoPorTurma(t.getId());
         return "listarAlunos";
     }
 
-    public LoginMB retornaLoginMB(){
+    public LoginMB retornaLoginMB() {
         FacesContext context = FacesContext.getCurrentInstance();
-        ELResolver resolver = context.getApplication().getELResolver();   
+        ELResolver resolver = context.getApplication().getELResolver();
         //MatriculaMB matriculaMB = (MatriculaMB) resolver.getValue(context.getELContext(), null, "matriculaMB");
         return (LoginMB) resolver.getValue(context.getELContext(), null, "loginMB");
     }
-    
-    public List<TurmaView> retornaTurmaViewProfessor(){
+
+    public List<TurmaView> retornaTurmaViewProfessor() {
         return turmaOP.retornaListaTurmaViewPorProfessor(codUsuario);
     }
-    
-    public List<TurmaAlunoView> retoraTurmaAlunoPorTurma(Integer idTurma){
+
+    public List<TurmaAlunoView> retoraTurmaAlunoPorTurma(Integer idTurma) {
         List<TurmaAlunoView> listaTurmaAlunoTurma = new ArrayList<TurmaAlunoView>();
-        for(TurmaAlunoView t : turmaAlunoOP.retornaTurmaAlunoView()){
-            if(t.getTurma().equals(idTurma)){
+        for (TurmaAlunoView t : turmaAlunoOP.retornaTurmaAlunoView()) {
+            if (t.getTurma().equals(idTurma)) {
                 listaTurmaAlunoTurma.add(t);
             }
         }
         return listaTurmaAlunoTurma;
     }
-    
-    public void salvarNotas(){
+
+    public void salvarNotas() {
         TurmaAluno turmaAluno;
-        for(TurmaAlunoView t : listaTurmaAluno){
-           turmaAluno = turmaAlunoOP.retornaTurmaAlunoPorId(t.getId());
-           turmaAluno.setNota(t.getNota());
-           turmaAlunoOP.alterarTurmaAluno(turmaAluno);
+        for (TurmaAlunoView t : listaTurmaAluno) {
+            turmaAluno = turmaAlunoOP.retornaTurmaAlunoPorId(t.getId());
+            turmaAluno.setNota(t.getNota());
+            turmaAlunoOP.alterarTurmaAluno(turmaAluno);
         }
     }
 }

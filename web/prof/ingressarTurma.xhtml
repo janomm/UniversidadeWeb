@@ -47,7 +47,7 @@
                         <p><h:commandLink value="Turmas" action="#{loginMB.linkProfessorTurma()}" /> </p>
                     </div>
                     <div class="col-sm-8 text-left">
-                        <h:dataTable var="turma" value="#{professorMB.retornaTurmaViewProfessor()}" styleClass="table table-bordered">
+                        <h:dataTable var="turma" value="#{professorMB.listaTurmaView}" styleClass="table table-bordered">
                             <f:facet name="header">
                                 <h:outputText value="Tabela de Turmas"/>
                             </f:facet>
@@ -77,6 +77,7 @@
                                 <h:commandButton value="Deixar" styleClass="btn btn-primary" action="#{professorMB.deixarTurma(turma)}" />
                             </h:column>
                         </h:dataTable> 
+                        <h:outputLabel value="#{professorMB.mensagemErro}" style="color: red" />
                     </div>
                     <div class="col-sm-2 sidenav">
                         <div class="well">
