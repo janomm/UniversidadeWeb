@@ -5,7 +5,6 @@
  */
 package bean;
 
-import data.CursoOP;
 import data.TurmaAlunoOP;
 import data.TurmaOP;
 import javax.inject.Named;
@@ -17,7 +16,6 @@ import javax.faces.context.FacesContext;
 import model.Turma;
 import model.TurmaAluno;
 import view.TurmaAlunoView;
-import view.TurmaConsulta;
 import view.TurmaView;
 
 /**

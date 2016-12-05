@@ -179,7 +179,6 @@ public class TurmaOP {
                 tv.setProfessor("");
             else
                 tv.setProfessor(nomeProfessor);
-
             listaTurmaView.add(tv);
         }
         return listaTurmaView;
