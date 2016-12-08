@@ -5,7 +5,6 @@
  */
 package ws;
 
-import model.Curso;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -22,8 +21,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
+import model.Curso;
 import rn.CursoRN;
-
 
 /**
  * REST Web Service
@@ -32,7 +31,7 @@ import rn.CursoRN;
  */
 @Path("curso")
 public class CursoWS {
-
+    
     @EJB
     private CursoRN cursoRN;
 
@@ -76,8 +75,8 @@ public class CursoWS {
     @Consumes(MediaType.APPLICATION_XML)
     public void alterarCurso(@PathParam("id") Integer id, Curso curso) {
         Curso c =cursoRN.buscar(id);
-        c.setCargaHoraria(curso.getCargaHoraria());
         c.setNome(curso.getNome());
+        c.setCargaHoraria(curso.getCargaHoraria());
         c.setSemestres(curso.getSemestres());
         c.setTipoCurso(curso.getTipoCurso());
         cursoRN.atualizar(c);

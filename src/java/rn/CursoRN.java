@@ -5,11 +5,15 @@
  */
 package rn;
 
-import model.Curso;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import model.Curso;
 
+/**
+ *
+ * @author mi
+ */
 @Stateless
 public class CursoRN extends AbstractRN<Curso>{
     @PersistenceContext(unitName="UniversidadeWebPU")
@@ -24,12 +28,15 @@ public class CursoRN extends AbstractRN<Curso>{
         return manager;
     }
     
-    public void salvar(Curso c)
+    public void salvar(Curso u)
     {
         //validar parâmetros
-        if(c.getId()==null)
-            super.adicionar(c);
+        if(u.getId()==null)
+            super.adicionar(u);
         else
-            super.atualizar(c);
-    }   
+            super.atualizar(u);
+    }
+    
+    
+    
 }
