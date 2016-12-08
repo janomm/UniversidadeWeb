@@ -24,12 +24,12 @@ public class CursoRN extends AbstractRN<Curso>{
         return manager;
     }
     
-    public void salvar(Curso u)
+    public void salvar(Curso c)
     {
         //validar parâmetros
-        if(u.getId()==null)
-            super.adicionar(u);
+        if(c.getId()==null)
+            super.adicionar(c);
         else
-            super.atualizar(u);
+            super.atualizar(c);
     }   
 }
